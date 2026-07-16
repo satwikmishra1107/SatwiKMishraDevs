@@ -1,0 +1,6 @@
+{
+  "name": "Creative Developer Portfolio",
+  "description": "A high-end, futuristic single-page developer portfolio with smooth Lenis scroll and custom GSAP ScrollTrigger animations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
