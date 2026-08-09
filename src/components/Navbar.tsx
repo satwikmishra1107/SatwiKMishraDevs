@@ -58,19 +58,19 @@ export default function Navbar() {
       id="hud-navbar"
       className="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-6 py-4 md:px-12 pointer-events-none"
     >
-      {/* Brand logo & active signal */}
-      <div className="flex items-center gap-3 bg-black/60 backdrop-blur-md border border-neutral-800/80 px-4 py-2 rounded-full pointer-events-auto shadow-cyan-glow/5">
+      {/* Brand logo & active signal - OPTIMIZED: Solid background, removed blur, updated to orange */}
+      <div className="flex items-center gap-3 bg-black/95 border border-neutral-800/80 px-4 py-2 rounded-full pointer-events-auto shadow-[0_0_10px_rgba(249,115,22,0.1)]">
         <span className="relative flex h-2 w-2">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-          <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+          <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
         </span>
         <span className="font-mono text-xs tracking-wider font-semibold text-neutral-300">
-          SYS_OPERATOR // <span className="text-cyan-400">DEV.TCS</span>
+          SYS_OPERATOR // <span className="text-orange-400">DEV.TCS</span>
         </span>
       </div>
 
-      {/* Center Nav menu */}
-      <nav className="hidden md:flex items-center gap-1 bg-black/60 backdrop-blur-md border border-neutral-800/80 p-1.5 rounded-full pointer-events-auto">
+      {/* Center Nav menu - OPTIMIZED: Solid background, removed blur */}
+      <nav className="hidden md:flex items-center gap-1 bg-black/95 border border-neutral-800/80 p-1.5 rounded-full pointer-events-auto">
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = activeSection === item.id;
@@ -80,19 +80,19 @@ export default function Navbar() {
               onClick={() => scrollTo(item.id)}
               className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full font-mono text-[11px] tracking-wider transition-all duration-300 ${
                 isActive
-                  ? 'bg-gradient-to-r from-cyan-950/40 to-purple-950/40 border border-cyan-500/50 text-cyan-400 shadow-cyan-glow/10'
+                  ? 'bg-gradient-to-r from-orange-950/40 to-amber-950/40 border border-orange-500/50 text-orange-400 shadow-[0_0_15px_rgba(249,115,22,0.15)]'
                   : 'text-neutral-400 hover:text-neutral-200 hover:bg-neutral-900/50 border border-transparent'
               }`}
             >
-              <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-cyan-400' : 'text-neutral-500'}`} />
+              <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-orange-400' : 'text-neutral-500'}`} />
               {item.label}
             </button>
           );
         })}
       </nav>
 
-      {/* Right system info clock */}
-      <div className="hidden lg:flex flex-col items-end bg-black/60 backdrop-blur-md border border-neutral-800/80 px-4 py-2 rounded-xl pointer-events-auto font-mono text-[10px] text-neutral-400 leading-tight">
+      {/* Right system info clock - OPTIMIZED: Solid background, removed blur */}
+      <div className="hidden lg:flex flex-col items-end bg-black/95 border border-neutral-800/80 px-4 py-2 rounded-xl pointer-events-auto font-mono text-[10px] text-neutral-400 leading-tight">
         <div>
           SYS_STATUS: <span className="text-emerald-400 font-bold">ONLINE</span>
         </div>
