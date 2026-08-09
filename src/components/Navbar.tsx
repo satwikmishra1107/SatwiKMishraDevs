@@ -17,26 +17,30 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    // Track active scroll sections
-    const sections = ['hero', 'about', 'experience', 'projects', 'footer'];
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY + 200;
-      for (const section of sections) {
-        const el = document.getElementById(section);
-        if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveSection(section);
-            break;
-          }
-        }
-      }
-    };
+  const sections = ['hero', 'about', 'experience', 'projects', 'footer'];
+  const elements = sections
+    .map((id) => document.getElementById(id))
+    .filter((el): el is HTMLElement => el !== null);
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    },
+    {
+      // only counts a section "active" once it's in the middle band
+      // of the viewport
+      rootMargin: '-40% 0px -40% 0px',
+      threshold: 0,
+    }
+  );
+
+  elements.forEach((el) => observer.observe(el));
+  return () => observer.disconnect();
+}, []);
 
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);

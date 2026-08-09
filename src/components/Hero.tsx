@@ -1,8 +1,29 @@
 import { motion } from 'motion/react';
 import Spline from '@splinetool/react-spline';
 import { ChevronDown } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [showSpline, setShowSpline] = useState(true);
+
+  useEffect(() => {
+    if (!sectionRef.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setShowSpline(entry.isIntersecting),
+      {
+        // stays mounted a bit before/after the viewport so it doesn't
+        // pop in/out on small scroll wiggles right at the edge
+        rootMargin: '50% 0px 50% 0px',
+        threshold: 0,
+      }
+    );
+
+    observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   const handleScrollTo = (targetId: string) => {
     const el = document.getElementById(targetId);
     if (!el) return;
@@ -17,17 +38,19 @@ export default function Hero() {
   return (
     <section
       id="hero"
+      ref={sectionRef}
       className="relative min-h-screen w-full flex flex-col justify-between bg-[#050505] overflow-hidden pt-24"
     >
       {/* Full-screen Spline Canvas */}
       <div className="absolute inset-0 w-full h-full z-0 pointer-events-auto">
-        <Spline
-          // scene="https://prod.spline.design/97sO5r6uWz6sOIzY/scene.splinecode"
-          scene="https://prod.spline.design/97sO5r6uWz6sOIzY/scene.splinecode"
+        {showSpline && (
+          <Spline
+            scene="https://prod.spline.design/97sO5r6uWz6sOIzY/scene.splinecode"
+            className="w-full h-full block"
+          />
 
-          // scene="https://prod.spline.design/97sO5r6uWz6sOIzY/scene.splinecode"
-          className="w-full h-full block"
-        />
+
+        )}
       </div>
 
       {/* Main hero central text overlay pushed to the bottom */}

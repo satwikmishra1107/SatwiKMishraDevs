@@ -1,4 +1,4 @@
-import React, { useRef, useLayoutEffect, Suspense } from 'react';
+import React, { useRef, useLayoutEffect, Suspense, useState, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Canvas } from '@react-three/fiber';
@@ -9,8 +9,10 @@ import Portrait from './Portrait';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function About() {
+
   const sectionRef = useRef<HTMLElement>(null);
-  const progressRef = useRef(0); // Stores the scroll progress (0 to 1)
+  const progressRef = useRef(0);
+  const [isVisible, setIsVisible] = useState(true);
 
   useLayoutEffect(() => {
     if (!sectionRef.current) return;
@@ -32,6 +34,16 @@ export default function About() {
     return () => ctx.revert(); // Cleanup on unmount
   }, []);
 
+  useEffect(() => {
+    if (!sectionRef.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { rootMargin: '30% 0px 30% 0px', threshold: 0 }
+    );
+    observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section
       id="about"
@@ -44,7 +56,12 @@ export default function About() {
       {/* NEW: FULL SCREEN CANVAS LAYER */}
       <div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
         {/* OPTIMIZED: Capped DPR to 1 to drastically reduce pixel calculations on large screens */}
-        <Canvas camera={{ position: [0, 0, 4.5], fov: 50 }} dpr={[1, 1.5]} className="w-full h-full">
+        <Canvas
+          camera={{ position: [0, 0, 4.5], fov: 50 }}
+          dpr={[1, 1.5]}
+          className="w-full h-full"
+          frameloop={isVisible ? 'always' : 'never'}
+        >
           <ambientLight intensity={1.0} />
           <Suspense fallback={null}>
             <Portrait progressRef={progressRef} />
