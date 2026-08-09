@@ -13,12 +13,10 @@ export default function Footer() {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const terminalEndRef = useRef<HTMLDivElement>(null);
 
-  // Auto scroll terminal logs smoothly without jerky page resizing jumps
   useEffect(() => {
     terminalEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }, [terminalLogs]);
 
-  // Native window listener to trap Escape key event
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setIsContactOpen(false);
@@ -27,7 +25,6 @@ export default function Footer() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Fixed Typewriter logic: Writes text character by character into a safely managed line element
   const triggerTypewriterResponse = (fullText: string) => {
     let currentText = '';
     let index = 0;
@@ -51,7 +48,6 @@ export default function Footer() {
     }, 20);
   };
 
-  // To this (making linkUrl optional with '?'):
   const executeCommand = (command: string, linkUrl?: string) => {
     const cleanCmd = command.trim();
     if (!cleanCmd) return;
@@ -127,7 +123,6 @@ export default function Footer() {
       {/* Main Container Setup */}
       <div className="max-w-7xl mx-auto w-full flex flex-col items-center flex-1 justify-center mb-16 relative z-10">
 
-        {/* Adjusted column metrics to make the terminal visually tighter */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center justify-items-center w-full mb-16">
 
           {/* Left Column Description Block */}
@@ -169,7 +164,8 @@ export default function Footer() {
 
           {/* Right Column: Balanced, Compact Console Screen */}
           <div className="lg:col-span-6 w-full max-w-xl lg:justify-self-center">
-            <div className="border border-orange-500/30 rounded-xl bg-zinc-950 overflow-hidden shadow-[0_0_30px_rgba(249,115,22,0.1)] relative backdrop-blur-md">
+            {/* OPTIMIZED: Removed backdrop-blur-md, made bg solid zinc-950 */}
+            <div className="border border-orange-500/30 rounded-xl bg-zinc-950 overflow-hidden shadow-[0_0_30px_rgba(249,115,22,0.1)] relative">
 
               {/* Terminal Frame Top Bar */}
               <div className="bg-neutral-900 px-4 py-3 flex items-center justify-between border-b border-orange-500/10 font-mono text-[10px] text-neutral-400 select-none">
@@ -225,9 +221,10 @@ export default function Footer() {
 
         {/* 3. Centered Core Email Launch Trigger */}
         <div className="w-full flex justify-center mt-4">
+          {/* OPTIMIZED: Added transform-gpu to offload the hover translation */}
           <button
             onClick={() => setIsContactOpen(true)}
-            className="px-12 py-4 bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-500 hover:to-amber-400 text-black font-mono text-xs font-bold tracking-widest rounded shadow-[0_0_30px_rgba(249,115,22,0.15)] hover:shadow-[0_0_40px_rgba(249,115,22,0.3)] transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer uppercase"
+            className="px-12 py-4 bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-500 hover:to-amber-400 text-black font-mono text-xs font-bold tracking-widest rounded shadow-[0_0_30px_rgba(249,115,22,0.15)] hover:shadow-[0_0_40px_rgba(249,115,22,0.3)] transition-all duration-300 transform-gpu hover:-translate-y-0.5 cursor-pointer uppercase"
           >
             LAUNCH_CONTACT_TRANSMISSION_SYSTEM
           </button>
@@ -235,8 +232,9 @@ export default function Footer() {
       </div>
 
       {/* Terminal Contact Overlay System Modals */}
+      {/* OPTIMIZED: Removed backdrop-blur-sm, solid bg-black/95 to prevent UI stalls */}
       {isContactOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95">
           <div className="w-full max-w-md bg-neutral-950 border border-orange-500/20 rounded-xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.8)]">
 
             <div className="bg-neutral-900 px-4 py-3 flex items-center justify-between border-b border-orange-500/10 font-mono text-xs text-neutral-400">
@@ -290,10 +288,11 @@ export default function Footer() {
                 />
               </div>
 
+              {/* OPTIMIZED: Added transform-gpu here as well */}
               <button
                 type="submit"
                 disabled={formSubmitted}
-                className="w-full py-3 bg-gradient-to-r from-orange-950/40 to-neutral-900 border border-orange-900/40 hover:border-orange-500 text-orange-400 font-mono text-xs font-bold tracking-widest rounded transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer uppercase"
+                className="w-full py-3 bg-gradient-to-r from-orange-950/40 to-neutral-900 border border-orange-900/40 hover:border-orange-500 text-orange-400 font-mono text-xs font-bold tracking-widest rounded transition-all duration-300 transform-gpu flex items-center justify-center gap-2 cursor-pointer uppercase"
               >
                 {formSubmitted ? (
                   <>
@@ -319,9 +318,10 @@ export default function Footer() {
         </div>
         <div className="flex items-center gap-6">
           <span className="text-orange-500/30 tracking-wider">SECURE_VOLCANIC_SHA_ACTIVE</span>
+          {/* OPTIMIZED: GPU accelerated hover transform */}
           <button
             onClick={scrollToTop}
-            className="flex items-center gap-1 text-neutral-500 hover:text-white transition-colors group cursor-pointer"
+            className="flex items-center gap-1 text-neutral-500 hover:text-white transition-colors group cursor-pointer transform-gpu"
           >
             <span>RETURN_TOP</span>
             <ArrowUp className="w-3 h-3 group-hover:-translate-y-0.5 transition-transform" />

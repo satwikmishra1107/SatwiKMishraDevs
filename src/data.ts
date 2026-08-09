@@ -5,7 +5,7 @@ export const MANIFESTO = {
   subtitle: "We build digital structures that transcend standard software constraints.",
   body1: "I am a Senior Systems Developer focused on crafting high-throughput, fault-tolerant software. I bridge the gap between elegant interface design and hard-metal systems performance, ensuring every pixel is synchronized with robust backend infrastructure.",
   highlightPhrase: "Engineering Solutions, Not Just Code.",
-  body2: "My methodology is centered around performance constraints, extreme legacy modernization, and decentralized scalability. By blending high-fidelity visuals with rigid microservices orchestration, I define the sweet spot of creative systems engineering."
+  // body2: "My methodology is centered around performance constraints, extreme legacy modernization, and decentralized scalability. By blending high-fidelity visuals with rigid microservices orchestration, I define the sweet spot of creative systems engineering."
 };
 
 export const EXPERIENCES: Experience[] = [

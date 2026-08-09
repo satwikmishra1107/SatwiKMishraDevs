@@ -13,9 +13,7 @@ import Footer from './components/Footer';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
-  // 1. Swapped to useLayoutEffect for accurate DOM measurements before paint
   useLayoutEffect(() => {
-    
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -35,37 +33,59 @@ export default function App() {
     gsap.ticker.lagSmoothing(0);
 
     const ctx = gsap.context(() => {
-      
-      // 2. Updated animation logic to trigger each element individually for pinpoint accuracy
+
+      // Optimized: Scopes the elements strictly to their parent section
       const animateSection = (selector: string, elements: string) => {
-        const targets = gsap.utils.toArray(`${selector} ${elements}`);
-        
-        targets.forEach((target: any) => {
-          gsap.fromTo(
-            target,
-            {
-              opacity: 0,
-              y: 40,
+        const q = gsap.utils.selector(selector); // This restricts the search to just this section
+
+        gsap.fromTo(
+          q(elements), // Now it only animates the elements inside the scoped section
+          {
+            opacity: 0,
+            y: 40,
+          },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: selector,
+              start: 'top 75%',
+              toggleActions: 'play none none none',
             },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.8,
-              ease: 'power2.out',
-              scrollTrigger: {
-                trigger: target, // The element triggers itself
-                start: 'top 85%', 
-                toggleActions: 'play none none none',
-              },
-            }
-          );
-        });
+          }
+        );
       };
 
       animateSection('#about', 'h2, p, blockquote, div.grid-cols-3, img');
       animateSection('#experience', 'h2, h3, ul, .sticky, .border-l > div');
-      animateSection('#projects', 'h2, p, .grid > div');
       animateSection('#footer', 'h2, p, button, .border');
+
+      // 1. Animate JUST the Projects header & subtitle
+      animateSection('#projects', 'h2, p.max-w-sm');
+
+      // 2. Animate each project row INDIVIDUALLY only when it enters the viewport
+      const projectRows = gsap.utils.toArray('#projects .space-y-24 > div');
+
+      projectRows.forEach((row: any) => {
+        gsap.fromTo(
+          row,
+          { opacity: 0, y: 50 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: row,
+              start: 'top 85%', // Triggers right as the specific card enters the screen
+              toggleActions: 'play none none none',
+            },
+          }
+        );
+      });
     });
 
     const handleLoad = () => {
@@ -85,15 +105,14 @@ export default function App() {
     return () => {
       lenis.destroy();
       gsap.ticker.remove(raf);
-      ctx.revert(); 
+      ctx.revert();
       window.removeEventListener('load', handleLoad);
       clearTimeout(timeoutId);
     };
   }, []);
 
   return (
-    // 3. Changed overflow-hidden to overflow-x-hidden to unblock vertical height calculations
-    <div className="relative min-h-screen bg-[#050505] text-neutral-200 overflow-x-hidden selection:bg-cyan-500/30 selection:text-cyan-200">
+    <div className="relative min-h-screen bg-[#050505] text-neutral-200 overflow-x-hidden selection:bg-orange-500/30 selection:text-orange-200">
       <Navbar />
 
       <main className="w-full">

@@ -7,15 +7,15 @@ export default function Experience() {
       id="experience"
       className="relative min-h-screen w-full bg-[#050505] py-24 px-6 md:px-12 xl:px-24 border-b border-neutral-900/60 overflow-hidden"
     >
-      {/* Background neon graphic flares */}
-      <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-[160px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-[160px] pointer-events-none" />
+      {/* Background neon graphic flares - OPTIMIZED: Changed to Orange/Amber */}
+      <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-orange-500/10 rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-[160px] pointer-events-none" />
 
       <div className="max-w-5xl mx-auto w-full">
         {/* Section Header */}
         <div className="flex items-center gap-2 mb-6">
-          <span className="h-[1px] w-8 bg-gradient-to-r from-cyan-400 to-purple-500" />
-          <span className="font-mono text-xs tracking-widest bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent font-bold">
+          <span className="h-[1px] w-8 bg-gradient-to-r from-orange-400 to-amber-500" />
+          <span className="font-mono text-xs tracking-widest bg-gradient-to-r from-orange-400 to-amber-400 bg-clip-text text-transparent font-bold">
             02 // RUNTIME SPEC TIMELINE
           </span>
         </div>
@@ -27,8 +27,8 @@ export default function Experience() {
         {/* Centralized Timeline Axis Structure */}
         <div className="relative w-full">
           
-          {/* Laser Core Spine Line */}
-          <div className="absolute left-4 lg:left-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-cyan-500 via-purple-500 to-cyan-500 -translate-x-1/2 opacity-60" />
+          {/* Laser Core Spine Line - OPTIMIZED: Thematic Gradient */}
+          <div className="absolute left-4 lg:left-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-orange-500 via-amber-500 to-orange-500 -translate-x-1/2 opacity-60" />
           
           <div className="space-y-10 relative">
             {EXPERIENCES.map((exp, index) => {
@@ -43,23 +43,24 @@ export default function Experience() {
                 >
                   {/* Glowing Node Core */}
                   <span className={`absolute left-4 lg:left-1/2 top-4 flex h-5 w-5 -translate-x-1/2 items-center justify-center bg-black rounded-full border-2 ${
-                    isEven ? 'border-cyan-400 shadow-cyan-glow' : 'border-purple-400 shadow-purple-glow'
+                    isEven ? 'border-orange-400 shadow-[0_0_10px_rgba(249,115,22,0.5)]' : 'border-amber-400 shadow-[0_0_10px_rgba(245,158,11,0.5)]'
                   } z-10`}>
-                    <span className={`h-2 w-2 rounded-full ${isEven ? 'bg-cyan-400' : 'bg-purple-400'} animate-pulse`} />
+                    <span className={`h-2 w-2 rounded-full ${isEven ? 'bg-orange-400' : 'bg-amber-400'} animate-pulse`} />
                   </span>
 
                   {/* Compact Summary Cards */}
                   <div className="w-full lg:w-1/2 lg:px-8 group">
-                    <div className={`p-5 rounded-xl border backdrop-blur-md transition-all duration-300 transform group-hover:-translate-y-1 bg-gradient-to-br ${
+                    {/* OPTIMIZED: Removed backdrop-blur-md, made background solid with via-neutral-950/95, added transform-gpu */}
+                    <div className={`p-5 rounded-xl border transition-all duration-300 transform-gpu group-hover:-translate-y-1 bg-gradient-to-br ${
                       isEven 
-                        ? 'from-cyan-950/20 via-black/80 to-neutral-950/40 border-cyan-500/30 hover:border-cyan-400 hover:shadow-cyan-glow/30 lg:text-right' 
-                        : 'from-purple-950/20 via-black/80 to-neutral-950/40 border-purple-500/30 hover:border-purple-400 hover:shadow-purple-glow/30 lg:text-left'
+                        ? 'from-orange-950/30 via-neutral-950/95 to-neutral-950/95 border-orange-500/30 hover:border-orange-400 hover:shadow-[0_0_20px_rgba(249,115,22,0.15)] lg:text-right' 
+                        : 'from-amber-950/30 via-neutral-950/95 to-neutral-950/95 border-amber-500/30 hover:border-amber-400 hover:shadow-[0_0_20px_rgba(245,158,11,0.15)] lg:text-left'
                     }`}>
                       
                       {/* Condensed Header */}
                       <div className="mb-3">
                         <span className={`font-mono text-[9px] font-bold uppercase tracking-wider ${
-                          isEven ? 'text-cyan-400' : 'text-purple-400'
+                          isEven ? 'text-orange-400' : 'text-amber-400'
                         }`}>
                           {exp.period}
                         </span>
@@ -77,9 +78,9 @@ export default function Experience() {
                       }`}>
                         {exp.highlights.slice(0, 2).map((highlight, idx) => (
                           <li key={idx} className="flex items-center gap-2 max-w-md">
-                            {!isEven && <span className="text-purple-400 text-xs">▪</span>}
+                            {!isEven && <span className="text-amber-400 text-xs">▪</span>}
                             <span className="line-clamp-1">{highlight}</span>
-                            {isEven && <span className="text-cyan-400 text-xs hidden lg:inline">▪</span>}
+                            {isEven && <span className="text-orange-400 text-xs hidden lg:inline">▪</span>}
                           </li>
                         ))}
                       </ul>
@@ -91,8 +92,8 @@ export default function Experience() {
                             key={tech}
                             className={`font-mono text-[8px] px-2 py-0.5 rounded border font-medium ${
                               isEven 
-                                ? 'bg-cyan-950/30 text-cyan-300 border-cyan-500/20' 
-                                : 'bg-purple-950/30 text-purple-300 border-purple-500/20'
+                                ? 'bg-orange-950/30 text-orange-300 border-orange-500/20' 
+                                : 'bg-amber-950/30 text-amber-300 border-amber-500/20'
                             }`}
                           >
                             {tech}
@@ -107,7 +108,7 @@ export default function Experience() {
                             <div className="text-[7px] text-neutral-500 uppercase tracking-widest truncate">
                               {metric.label}
                             </div>
-                            <div className={`text-xs font-bold mt-0.5 ${isEven ? 'text-cyan-400' : 'text-purple-400'}`}>
+                            <div className={`text-xs font-bold mt-0.5 ${isEven ? 'text-orange-400' : 'text-amber-400'}`}>
                               {metric.value}
                             </div>
                           </div>
