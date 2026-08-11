@@ -21,17 +21,17 @@ export default function About() {
       ScrollTrigger.create({
         trigger: sectionRef.current,
         start: 'top top',
-        end: '+=150%', // Pins the screen for 1.5x the viewport height
+        end: '+=150%',
         pin: true,
         scrub: true,
+        anticipatePin: 1,
         onUpdate: (self) => {
-          // Send the live scroll progress (0.0 to 1.0) directly to the ref
           progressRef.current = self.progress;
         },
       });
     }, sectionRef);
 
-    return () => ctx.revert(); // Cleanup on unmount
+    return () => ctx.revert();
   }, []);
 
   useEffect(() => {

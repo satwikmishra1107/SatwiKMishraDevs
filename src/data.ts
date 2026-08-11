@@ -51,7 +51,7 @@ export const PROJECTS: Project[] = [
     title: "Distributed Storage Layer",
     description: "A secure, resilient peer-to-peer storage fabric built to optimize dynamic block indexing, featuring autonomous node discovery, zero-knowledge metadata consensus, and a real-time reactive admin HUD.",
     tags: ["Rust", "gRPC", "WebAssembly", "React", "Tailwind CSS"],
-    thumbnail: "/src/assets/images/distributed_storage_1784107493202.jpg",
+    thumbnail: "/src/assets/ProjectOne.png",
     demoUrl: "#",
     githubUrl: "https://github.com",
     stats: [

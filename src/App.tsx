@@ -1,18 +1,32 @@
-import { useLayoutEffect } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import Lenis from 'lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
 import Experience from './components/Experience';
 import Projects from './components/Projects';
 import Footer from './components/Footer';
+import Cursor from './components/Cursor';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
+  const [cursorReady, setCursorReady] = useState(false);
+
+  useEffect(() => {
+    const start = () => setCursorReady(true);
+    const id = 'requestIdleCallback' in window
+      ? (window as any).requestIdleCallback(start, { timeout: 800 })
+      : setTimeout(start, 500);
+    return () => {
+      'cancelIdleCallback' in window
+        ? (window as any).cancelIdleCallback(id)
+        : clearTimeout(id);
+    };
+  }, []);
+
   useLayoutEffect(() => {
     const lenis = new Lenis({
       duration: 1.2,
@@ -33,13 +47,11 @@ export default function App() {
     gsap.ticker.lagSmoothing(0);
 
     const ctx = gsap.context(() => {
-
-      // Optimized: Scopes the elements strictly to their parent section
       const animateSection = (selector: string, elements: string) => {
-        const q = gsap.utils.selector(selector); // This restricts the search to just this section
+        const q = gsap.utils.selector(selector);
 
         gsap.fromTo(
-          q(elements), // Now it only animates the elements inside the scoped section
+          q(elements),
           {
             opacity: 0,
             y: 40,
@@ -63,10 +75,8 @@ export default function App() {
       animateSection('#experience', 'h2, h3, ul, .sticky, .border-l > div');
       animateSection('#footer', 'h2, p, button, .border');
 
-      // 1. Animate JUST the Projects header & subtitle
       animateSection('#projects', 'h2, p.max-w-sm');
 
-      // 2. Animate each project row INDIVIDUALLY only when it enters the viewport
       const projectRows = gsap.utils.toArray('#projects .space-y-24 > div');
 
       projectRows.forEach((row: any) => {
@@ -80,7 +90,7 @@ export default function App() {
             ease: 'power2.out',
             scrollTrigger: {
               trigger: row,
-              start: 'top 85%', // Triggers right as the specific card enters the screen
+              start: 'top 85%',
               toggleActions: 'play none none none',
             },
           }
@@ -113,6 +123,8 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen bg-[#050505] text-neutral-200 overflow-x-hidden selection:bg-orange-500/30 selection:text-orange-200">
+
+      {cursorReady && <Cursor />}
       <Navbar />
 
       <main className="w-full">
