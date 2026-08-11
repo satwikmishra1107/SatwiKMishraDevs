@@ -12,7 +12,8 @@ export default function About() {
 
   const sectionRef = useRef<HTMLElement>(null);
   const progressRef = useRef(0);
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false); // was true
+  const [hasEntered, setHasEntered] = useState(false);
 
   useLayoutEffect(() => {
     if (!sectionRef.current) return;
@@ -37,7 +38,10 @@ export default function About() {
   useEffect(() => {
     if (!sectionRef.current) return;
     const observer = new IntersectionObserver(
-      ([entry]) => setIsVisible(entry.isIntersecting),
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+        if (entry.isIntersecting) setHasEntered(true);
+      },
       { rootMargin: '30% 0px 30% 0px', threshold: 0 }
     );
     observer.observe(sectionRef.current);
@@ -50,37 +54,32 @@ export default function About() {
       ref={sectionRef}
       className="relative h-screen w-full flex items-center bg-[#050505] overflow-hidden"
     >
-      {/* Decorative gradient */}
       <div className="absolute top-1/2 right-0 -translate-y-1/2 w-80 h-80 bg-orange-950/10 rounded-full blur-[140px] pointer-events-none z-0" />
 
-      {/* NEW: FULL SCREEN CANVAS LAYER */}
       <div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
-        {/* OPTIMIZED: Capped DPR to 1 to drastically reduce pixel calculations on large screens */}
-        <Canvas
-          camera={{ position: [0, 0, 4.5], fov: 50 }}
-          dpr={[1, 1.5]}
-          className="w-full h-full"
-          frameloop={isVisible ? 'always' : 'never'}
-        >
-          <ambientLight intensity={1.0} />
-          <Suspense fallback={null}>
-            <Portrait progressRef={progressRef} />
-          </Suspense>
+        {hasEntered && (
+          <Canvas
+            camera={{ position: [0, 0, 4.5], fov: 50 }}
+            dpr={[1, 1.5]}
+            className="w-full h-full"
+            frameloop={isVisible ? 'always' : 'never'}
+          >
+            <ambientLight intensity={1.0} />
+            <Suspense fallback={null}>
+              <Portrait progressRef={progressRef} />
+            </Suspense>
 
-          {/* OPTIMIZED: Disabled multisampling and removed mipmapBlur for a cheaper render pass */}
-          <EffectComposer multisampling={0}>
-            <Bloom luminanceThreshold={1.0} intensity={0.4} />
-          </EffectComposer>
-        </Canvas>
+            <EffectComposer multisampling={0}>
+              <Bloom luminanceThreshold={1.0} intensity={0.4} />
+            </EffectComposer>
+          </Canvas>
+        )}
       </div>
 
-      {/* NEW: FOREGROUND TEXT LAYER */}
       <div className="relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center h-full pointer-events-none px-6 md:px-12 xl:px-24">
 
-        {/* Empty space holding the left side open for the 3D portrait */}
         <div className="hidden lg:block lg:col-span-6 h-full"></div>
 
-        {/* Right Column: Punchy Manifesto */}
         <div className="lg:col-span-6 flex flex-col justify-center pointer-events-auto py-24">
           <div className="flex items-center gap-2 mb-6">
             <span className="h-[1px] w-8 bg-orange-500" />
@@ -107,29 +106,8 @@ export default function About() {
                 This is the standard of systems integrity."
               </span>
             </blockquote>
-
-            {/* <p className="text-neutral-400">
-              {MANIFESTO.body2}
-            </p> */}
           </div>
-
-          {/* Core pillar indicators updated to the new color scheme */}
-          {/* <div className="grid grid-cols-3 gap-4 mt-10 border-t border-neutral-900/60 pt-8 font-mono text-[10px] text-neutral-500">
-            <div className="space-y-1">
-              <span className="text-orange-400 block font-semibold">[01] SPEED</span>
-              <span>Ultra-low sub-millisecond execution patterns.</span>
-            </div>
-            <div className="space-y-1">
-              <span className="text-neutral-300 block font-semibold">[02] TRUST</span>
-              <span>Highly redundant systems with failover state.</span>
-            </div>
-            <div className="space-y-1">
-              <span className="text-white block font-semibold">[03] LEGACY</span>
-              <span>Modern microservices decoupling workflows.</span>
-            </div>
-          </div> */}
         </div>
-
       </div>
     </section>
   );
