@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { SOCIALS } from '../data';
 import { Terminal, ArrowUp, Send, CheckCircle, X } from 'lucide-react';
+import FooterOrb from './FooterOrb';
 
 export default function Footer() {
   const [terminalLogs, setTerminalLogs] = useState([
@@ -11,7 +12,29 @@ export default function Footer() {
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [formSubmitted, setFormSubmitted] = useState(false);
+
+  const [isOrbMounted, setIsOrbMounted] = useState(false);
+  const footerRef = useRef<HTMLElement>(null);
   const terminalEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsOrbMounted(entry.isIntersecting);
+      },
+      {
+        root: null,
+        rootMargin: '200px',
+        threshold: 0
+      }
+    );
+
+    if (footerRef.current) {
+      observer.observe(footerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     terminalEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -94,7 +117,7 @@ export default function Footer() {
     }
   };
 
-  const handleFormSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
 
@@ -114,19 +137,28 @@ export default function Footer() {
 
   return (
     <footer
+      ref={footerRef}
       id="footer"
       className="relative min-h-screen w-full bg-[#050505] py-24 px-6 md:px-12 xl:px-24 flex flex-col justify-between overflow-hidden select-none"
     >
       {/* Volcanic Ambient Under-glow */}
       <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-orange-950/10 rounded-full blur-[160px] pointer-events-none mix-blend-screen" />
 
-      {/* Main Container Setup */}
-      <div className="max-w-7xl mx-auto w-full flex flex-col items-center flex-1 justify-center mb-16 relative z-10">
+      {/* Orb Background Layer */}
+      {isOrbMounted && (
+        <div className="absolute inset-0 w-full h-full z-0 pointer-events-auto">
+          <FooterOrb />
+        </div>
+      )}
 
+      {/* Main Content Container */}
+      <div className="max-w-7xl mx-auto w-full flex flex-col items-center flex-1 justify-center mb-16 relative z-10 pointer-events-none">
+
+        {/* Grid: Removed blanket pointer-events-auto */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center justify-items-center w-full mb-16">
 
-          {/* Left Column Description Block */}
-          <div className="lg:col-span-6 space-y-8 w-full max-w-md justify-self-start lg:justify-self-center">
+          {/* Left Column: pointer-events-none so empty space passes through to orb */}
+          <div className="lg:col-span-6 space-y-8 w-full max-w-md justify-self-start lg:justify-self-center pointer-events-none">
             <div className="flex items-center gap-2">
               <span className="h-[1px] w-8 bg-gradient-to-r from-orange-500 to-amber-500" />
               <span className="font-mono text-xs tracking-widest text-orange-400 font-bold">
@@ -146,14 +178,14 @@ export default function Footer() {
               </p>
             </div>
 
-            {/* Direct Node Access list */}
+            {/* Social Links: pointer-events-auto re-enabled only on buttons */}
             <div className="space-y-3 font-mono text-xs">
               <div className="text-[9px] text-neutral-600 uppercase tracking-widest font-semibold">// ROUTING_ACCESS_NODES</div>
               {SOCIALS.map((soc) => (
                 <button
                   key={soc.id}
                   onClick={() => executeCommand(soc.terminalCommand, soc.url)}
-                  className="flex items-center gap-2 text-orange-400/90 hover:text-amber-400 transition-colors duration-200 group text-left cursor-pointer"
+                  className="flex items-center gap-2 text-orange-400/90 hover:text-amber-400 transition-colors duration-200 group text-left cursor-pointer pointer-events-auto"
                 >
                   <span className="text-neutral-700 font-bold group-hover:text-orange-500 transition-colors duration-200">{`>>>`}</span>
                   <span className="underline decoration-orange-500/20 underline-offset-4 font-semibold">{soc.terminalCommand}</span>
@@ -162,9 +194,8 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Right Column: Balanced, Compact Console Screen */}
-          <div className="lg:col-span-6 w-full max-w-xl lg:justify-self-center">
-            {/* OPTIMIZED: Removed backdrop-blur-md, made bg solid zinc-950 */}
+          {/* Right Column: Terminal wrapper gets pointer-events-auto */}
+          <div className="lg:col-span-6 w-full max-w-xl lg:justify-self-center pointer-events-auto">
             <div className="border border-orange-500/30 rounded-xl bg-zinc-950 overflow-hidden shadow-[0_0_30px_rgba(249,115,22,0.1)] relative">
 
               {/* Terminal Frame Top Bar */}
@@ -219,20 +250,18 @@ export default function Footer() {
 
         </div>
 
-        {/* 3. Centered Core Email Launch Trigger */}
+        {/* Centered CTA: pointer-events-auto so it stays clickable */}
         <div className="w-full flex justify-center mt-4">
-          {/* OPTIMIZED: Added transform-gpu to offload the hover translation */}
           <button
             onClick={() => setIsContactOpen(true)}
-            className="px-12 py-4 bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-500 hover:to-amber-400 text-black font-mono text-xs font-bold tracking-widest rounded shadow-[0_0_30px_rgba(249,115,22,0.15)] hover:shadow-[0_0_40px_rgba(249,115,22,0.3)] transition-all duration-300 transform-gpu hover:-translate-y-0.5 cursor-pointer uppercase"
+            className="px-12 py-4 bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-500 hover:to-amber-400 text-black font-mono text-xs font-bold tracking-widest rounded shadow-[0_0_30px_rgba(249,115,22,0.15)] hover:shadow-[0_0_40px_rgba(249,115,22,0.3)] transition-all duration-300 transform-gpu hover:-translate-y-0.5 cursor-pointer uppercase pointer-events-auto"
           >
             LAUNCH_CONTACT_TRANSMISSION_SYSTEM
           </button>
         </div>
       </div>
 
-      {/* Terminal Contact Overlay System Modals */}
-      {/* OPTIMIZED: Removed backdrop-blur-sm, solid bg-black/95 to prevent UI stalls */}
+      {/* Contact Overlay Modal */}
       {isContactOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95">
           <div className="w-full max-w-md bg-neutral-950 border border-orange-500/20 rounded-xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.8)]">
@@ -288,7 +317,6 @@ export default function Footer() {
                 />
               </div>
 
-              {/* OPTIMIZED: Added transform-gpu here as well */}
               <button
                 type="submit"
                 disabled={formSubmitted}
@@ -311,17 +339,16 @@ export default function Footer() {
         </div>
       )}
 
-      {/* Footer System Meta Architecture Details */}
-      <div className="border-t border-neutral-900 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-neutral-600 font-mono text-[9px]">
+      {/* Footer Meta: pointer-events-none on container, auto only on the scroll button */}
+      <div className="border-t border-neutral-900 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-neutral-600 font-mono text-[9px] relative z-10 pointer-events-none">
         <div>
           © 2026 // OPERATOR_TCS_DESIGNS // ALL RIGHTS CACHED INTO COMPILER BUFFER.
         </div>
         <div className="flex items-center gap-6">
           <span className="text-orange-500/30 tracking-wider">SECURE_VOLCANIC_SHA_ACTIVE</span>
-          {/* OPTIMIZED: GPU accelerated hover transform */}
           <button
             onClick={scrollToTop}
-            className="flex items-center gap-1 text-neutral-500 hover:text-white transition-colors group cursor-pointer transform-gpu"
+            className="flex items-center gap-1 text-neutral-500 hover:text-white transition-colors group cursor-pointer transform-gpu pointer-events-auto"
           >
             <span>RETURN_TOP</span>
             <ArrowUp className="w-3 h-3 group-hover:-translate-y-0.5 transition-transform" />
