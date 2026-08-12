@@ -1,27 +1,30 @@
 import { motion } from 'motion/react';
 import Spline from '@splinetool/react-spline';
 import { ChevronDown } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const [showSpline, setShowSpline] = useState(true);
 
-  useEffect(() => {
+  // Replaced IntersectionObserver with GSAP ScrollTrigger
+  useLayoutEffect(() => {
     if (!sectionRef.current) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => setShowSpline(entry.isIntersecting),
-      {
-        // stays mounted a bit before/after the viewport so it doesn't
-        // pop in/out on small scroll wiggles right at the edge
-        rootMargin: '50% 0px 50% 0px',
-        threshold: 0,
-      }
-    );
+    const ctx = gsap.context(() => {
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: 'top 50%',
+        end: 'bottom -50%', // Replicates rootMargin: '50% 0px 50% 0px'
+        onToggle: (self) => setShowSpline(self.isActive),
+      });
+    }, sectionRef);
 
-    observer.observe(sectionRef.current);
-    return () => observer.disconnect();
+    return () => ctx.revert();
   }, []);
 
   const handleScrollTo = (targetId: string) => {

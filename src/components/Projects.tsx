@@ -32,7 +32,7 @@ export default function Projects() {
         <div className="space-y-24 md:space-y-32">
           {PROJECTS.map((project, index) => {
             const isEven = index % 2 === 0;
-            
+
             // Mock statistical data for deep technical context
             const analysisStats = isEven ? [
               { metric: "AVG LATENCY", value: "0.42ms", variance: "-12.4%" },
@@ -47,8 +47,8 @@ export default function Projects() {
             ];
 
             return (
-              <div 
-                key={project.id} 
+              <div
+                key={project.id}
                 className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center"
               >
                 {/* Statistical Data, Explanatory Text, and Main Actions */}
@@ -61,7 +61,7 @@ export default function Projects() {
                   <h3 className="font-display text-xl sm:text-2xl font-bold text-white uppercase tracking-tight">
                     Performance Telemetry
                   </h3>
-                  
+
                   <p className="font-sans text-sm text-neutral-400 font-light leading-relaxed">
                     Live production evaluation showcasing core platform metrics. The architecture handles horizontal expansion triggers effortlessly while strictly tracking sub-millisecond execution loops across containerized states.
                   </p>
@@ -73,10 +73,9 @@ export default function Projects() {
                         <span className="text-[9px] text-neutral-500 block tracking-wider">{stat.metric}</span>
                         <div className="flex items-baseline gap-2 mt-1">
                           <span className="text-sm font-bold text-neutral-200">{stat.value}</span>
-                          <span className={`text-[8px] font-medium ${
-                            stat.variance.includes('+') ? 'text-emerald-400' : 
-                            stat.variance.includes('-') ? (isEven ? 'text-orange-400' : 'text-amber-400') : 'text-neutral-500'
-                          }`}>
+                          <span className={`text-[8px] font-medium ${stat.variance.includes('+') ? 'text-emerald-400' :
+                              stat.variance.includes('-') ? (isEven ? 'text-orange-400' : 'text-amber-400') : 'text-neutral-500'
+                            }`}>
                             {stat.variance}
                           </span>
                         </div>
@@ -90,11 +89,10 @@ export default function Projects() {
                       href={project.demoUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className={`flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3 rounded-lg border font-semibold tracking-wider transition-all duration-300 shadow-md ${
-                        isEven 
-                          ? 'bg-orange-950/30 border-orange-500/40 text-orange-400 hover:bg-orange-500/10 hover:border-orange-400 hover:shadow-[0_0_15px_rgba(249,115,22,0.2)]' 
+                      className={`flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3 rounded-lg border font-semibold tracking-wider transition-all duration-300 shadow-md ${isEven
+                          ? 'bg-orange-950/30 border-orange-500/40 text-orange-400 hover:bg-orange-500/10 hover:border-orange-400 hover:shadow-[0_0_15px_rgba(249,115,22,0.2)]'
                           : 'bg-amber-950/30 border-amber-500/40 text-amber-400 hover:bg-amber-500/10 hover:border-amber-400 hover:shadow-[0_0_15px_rgba(245,158,11,0.2)]'
-                      }`}
+                        }`}
                     >
                       <ExternalLink className="w-4 h-4" />
                       <span>LAUNCH_HUD // LIVE</span>
@@ -120,11 +118,10 @@ export default function Projects() {
                 {/* The Project Cards - OPTIMIZED: removed backdrop-blur, solid bg, added transform-gpu */}
                 <div className={`lg:col-span-6 flex justify-center ${isEven ? 'order-1 lg:order-2 lg:justify-end' : 'order-1 lg:order-1 lg:justify-start'}`}>
                   <div
-                    className={`group relative w-full max-w-[540px] rounded-xl bg-neutral-950/90 border border-neutral-900 overflow-hidden transition-all duration-500 flex flex-col justify-between transform-gpu ${
-                      isEven 
-                        ? 'hover:border-orange-500/50 hover:shadow-[0_0_20px_rgba(249,115,22,0.15)]' 
+                    className={`group relative w-full max-w-[540px] rounded-xl bg-neutral-950/90 border border-neutral-900 overflow-hidden transition-all duration-500 flex flex-col justify-between transform-gpu ${isEven
+                        ? 'hover:border-orange-500/50 hover:shadow-[0_0_20px_rgba(249,115,22,0.15)]'
                         : 'hover:border-amber-500/50 hover:shadow-[0_0_20px_rgba(245,158,11,0.15)]'
-                    }`}
+                      }`}
                     style={{
                       boxShadow: 'inset 0 1px 1px rgba(255, 255, 255, 0.05)',
                     }}
@@ -132,35 +129,25 @@ export default function Projects() {
                     {/* Visual hover border overlay glow using custom css shadows */}
                     <div
                       className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                      style={{ 
+                      style={{
                         mixBlendMode: 'screen',
-                        boxShadow: `inset 0 0 40px rgba(${isEven ? '249,115,22' : '245,158,11'}, 0.1)` 
+                        boxShadow: `inset 0 0 40px rgba(${isEven ? '249,115,22' : '245,158,11'}, 0.1)`
                       }}
                     />
 
                     {/* Card Top: Image Container with Hover Zoom */}
+                    {/* Inside your project mapping loop */}
                     <div className="relative aspect-[16/10] w-full overflow-hidden border-b border-neutral-900">
-                      {/* OPTIMIZED: Added loading lazy and will-change-transform */}
+                      {/* Removed `will-change-transform` from the class list */}
                       <img
                         src={project.thumbnail}
                         alt={project.title}
                         loading="lazy"
                         referrerPolicy="no-referrer"
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out will-change-transform"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                       />
 
-                      {/* Gradient dark overlays to blend the image seamlessly into the card */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent pointer-events-none" />
-
-                      {/* Icon HUD banner - OPTIMIZED: Removed backdrop blur */}
-                      {/* <div className="absolute top-4 left-4 bg-black/90 border border-neutral-800/80 rounded px-2.5 py-1 flex items-center gap-1.5 font-mono text-[9px] text-neutral-400">
-                        {isEven ? (
-                          <Server className="w-3 h-3 text-orange-400" />
-                        ) : (
-                          <Layers className="w-3 h-3 text-amber-400" />
-                        )}
-                        <span>PROJ_0{index + 1}</span>
-                      </div> */}
                     </div>
 
                     {/* Card Body */}

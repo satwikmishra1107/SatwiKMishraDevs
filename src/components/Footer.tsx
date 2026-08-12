@@ -1,7 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import { SOCIALS } from '../data';
 import { Terminal, ArrowUp, Send, CheckCircle, X } from 'lucide-react';
 import FooterOrb from './FooterOrb';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Footer() {
   const [terminalLogs, setTerminalLogs] = useState([
@@ -17,23 +21,18 @@ export default function Footer() {
   const footerRef = useRef<HTMLElement>(null);
   const terminalEndRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsOrbMounted(entry.isIntersecting);
-      },
-      {
-        root: null,
-        rootMargin: '200px',
-        threshold: 0
-      }
-    );
+  useLayoutEffect(() => {
+    if (!footerRef.current) return;
 
-    if (footerRef.current) {
-      observer.observe(footerRef.current);
-    }
+    const ctx = gsap.context(() => {
+      ScrollTrigger.create({
+        trigger: footerRef.current,
+        start: 'top 120%', // Triggers early, replicating rootMargin: '200px'
+        onToggle: (self) => setIsOrbMounted(self.isActive),
+      });
+    }, footerRef);
 
-    return () => observer.disconnect();
+    return () => ctx.revert();
   }, []);
 
   useEffect(() => {

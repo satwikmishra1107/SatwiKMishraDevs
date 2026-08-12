@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Terminal, Cpu, Layers, Disc, Hammer } from 'lucide-react';
 
-export default function Navbar() {
-  const [activeSection, setActiveSection] = useState('hero');
+// 1. Extract the clock logic into an isolated micro-component
+const SystemClock = () => {
   const [systemTime, setSystemTime] = useState('');
 
   useEffect(() => {
-    // Dynamic system clock
     const updateTime = () => {
       const now = new Date();
       setSystemTime(now.toUTCString().replace('GMT', 'UTC'));
@@ -16,31 +15,37 @@ export default function Navbar() {
     return () => clearInterval(interval);
   }, []);
 
+  return <>{systemTime || 'UPDATING CLOCK_'}</>;
+};
+
+export default function Navbar() {
+  const [activeSection, setActiveSection] = useState('hero');
+  
+  // Notice we removed the systemTime state and its useEffect from here.
+
   useEffect(() => {
-  const sections = ['hero', 'about', 'experience', 'projects', 'footer'];
-  const elements = sections
-    .map((id) => document.getElementById(id))
-    .filter((el): el is HTMLElement => el !== null);
+    const sections = ['hero', 'about', 'experience', 'projects', 'footer'];
+    const elements = sections
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActiveSection(entry.target.id);
-        }
-      });
-    },
-    {
-      // only counts a section "active" once it's in the middle band
-      // of the viewport
-      rootMargin: '-40% 0px -40% 0px',
-      threshold: 0,
-    }
-  );
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      {
+        rootMargin: '-40% 0px -40% 0px',
+        threshold: 0,
+      }
+    );
 
-  elements.forEach((el) => observer.observe(el));
-  return () => observer.disconnect();
-}, []);
+    elements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
 
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
@@ -62,7 +67,6 @@ export default function Navbar() {
       id="hud-navbar"
       className="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-6 py-4 md:px-12 pointer-events-none"
     >
-      {/* Brand logo & active signal - OPTIMIZED: Solid background, removed blur, updated to orange */}
       <div className="flex items-center gap-3 bg-black/95 border border-neutral-800/80 px-4 py-2 rounded-full pointer-events-auto shadow-[0_0_10px_rgba(249,115,22,0.1)]">
         <span className="relative flex h-2 w-2">
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
@@ -73,7 +77,6 @@ export default function Navbar() {
         </span>
       </div>
 
-      {/* Center Nav menu - OPTIMIZED: Solid background, removed blur */}
       <nav className="hidden md:flex items-center gap-1 bg-black/95 border border-neutral-800/80 p-1.5 rounded-full pointer-events-auto">
         {navItems.map((item) => {
           const Icon = item.icon;
@@ -95,13 +98,13 @@ export default function Navbar() {
         })}
       </nav>
 
-      {/* Right system info clock - OPTIMIZED: Solid background, removed blur */}
       <div className="hidden lg:flex flex-col items-end bg-black/95 border border-neutral-800/80 px-4 py-2 rounded-xl pointer-events-auto font-mono text-[10px] text-neutral-400 leading-tight">
         <div>
           SYS_STATUS: <span className="text-emerald-400 font-bold">ONLINE</span>
         </div>
         <div className="text-[9px] text-neutral-500 font-medium tracking-wide mt-0.5">
-          {systemTime || 'UPDATING CLOCK_'}
+          {/* 2. Inject the isolated clock component here */}
+          <SystemClock />
         </div>
       </div>
     </header>

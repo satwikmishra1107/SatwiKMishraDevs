@@ -206,16 +206,25 @@ export default function Portrait({ progressRef }: PortraitProps) {
 
   useFrame((state) => {
     if (canvasMatRef.current && brushMatRef.current) {
-      // Keep time moving for fluid swirls
+      // 1. Keep time moving for fluid swirls (This must run every frame)
       brushMatRef.current.uniforms.uTime.value = state.clock.elapsedTime;
 
-      // Smoothly interpolate the shader's progress toward the actual scroll position
       const target = progressRef.current;
       const current = canvasMatRef.current.uniforms.uProgress.value;
-      const smoothProgress = THREE.MathUtils.lerp(current, target, 0.08); // 0.08 dictates the "lag/smoothness"
 
-      canvasMatRef.current.uniforms.uProgress.value = smoothProgress;
-      brushMatRef.current.uniforms.uProgress.value = smoothProgress;
+      // Calculate the absolute difference between where we are and where we need to be
+      const diff = Math.abs(target - current);
+
+      // 2. Early exit logic: Only calculate lerp if the difference is meaningful
+      if (diff > 0.001) {
+        const smoothProgress = THREE.MathUtils.lerp(current, target, 0.08);
+        canvasMatRef.current.uniforms.uProgress.value = smoothProgress;
+        brushMatRef.current.uniforms.uProgress.value = smoothProgress;
+      } else if (current !== target) {
+        // 3. Snap directly to target to kill microscopic floating-point math loops
+        canvasMatRef.current.uniforms.uProgress.value = target;
+        brushMatRef.current.uniforms.uProgress.value = target;
+      }
     }
   });
 

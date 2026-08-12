@@ -4,7 +4,6 @@ import type { Application } from '@splinetool/runtime';
 
 export default function Cursor() {
   const splineRef = useRef<Application | null>(null);
-  const mouse = useRef({ x: 0, y: 0 });
   const fireflyRef = useRef<any>(null);
 
   const onLoad = (splineApp: Application) => {
@@ -13,36 +12,27 @@ export default function Cursor() {
   };
 
   useEffect(() => {
-    let rafId: number;
-    const dirty = { current: false };
-
     const handleMouseMove = (e: MouseEvent) => {
+      // If Spline hasn't loaded the object yet, exit early
+      if (!fireflyRef.current) return;
+
       const SCALE = 2.45;
-      mouse.current = {
-        x: (e.clientX - window.innerWidth / 2) / SCALE,
-        y: -(e.clientY - window.innerHeight / 2) / SCALE
-      };
-      dirty.current = true;
-    };
-
-    const tick = () => {
-
       const OFFSET_X = 0;
       const OFFSET_Y = 110;
 
-      if (dirty.current && fireflyRef.current) {
-        fireflyRef.current.position.x = OFFSET_X + mouse.current.x;
-        fireflyRef.current.position.y = OFFSET_Y + mouse.current.y;
-        dirty.current = false;
-      }
-      rafId = requestAnimationFrame(tick);
+      // Calculate the new coordinates directly from the event
+      const targetX = (e.clientX - window.innerWidth / 2) / SCALE;
+      const targetY = -(e.clientY - window.innerHeight / 2) / SCALE;
+
+      // Mutate the Spline object's position directly
+      fireflyRef.current.position.x = OFFSET_X + targetX;
+      fireflyRef.current.position.y = OFFSET_Y + targetY;
     };
 
     window.addEventListener('mousemove', handleMouseMove);
-    rafId = requestAnimationFrame(tick);
+    
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
-      cancelAnimationFrame(rafId);
     };
   }, []);
 
