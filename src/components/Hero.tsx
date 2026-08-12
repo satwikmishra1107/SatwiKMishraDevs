@@ -62,7 +62,9 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="text-sm sm:text-base md:text-lg text-neutral-400 max-w-2xl font-sans mt-8 leading-relaxed font-light"
         >
-          Engineering robust, high-performance distributed solutions. Specializing in legacy system modernization, database optimization, and high-fidelity technical development.
+          We've always defined ourselves by the ability to overcome the impossible.
+          <br/>
+          Somewhere something incredible is waiting to be known.
         </motion.p>
       </div>
 

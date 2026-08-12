@@ -15,14 +15,14 @@ export default function Projects() {
         <div className="flex items-center gap-2 mb-6">
           <span className="h-[1px] w-8 bg-orange-500" />
           <span className="font-mono text-xs tracking-widest text-orange-400">
-            03 // BUILDS & COMPILATIONS
+            03 // THE PROJECTS SECTION
           </span>
         </div>
 
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-16">
-          <h2 className="text-3xl sm:text-5xl font-display font-bold text-white tracking-tight uppercase leading-none">
-            PRODUCTION SYSTEMS
-          </h2>
+          <h4 className="text-3xl sm:text-3xl font-display font-bold text-white tracking-tight leading-none">
+            A Few Systems Built To Solve Real Problems.
+          </h4>
           {/* <p className="font-mono text-xs text-neutral-500 max-w-sm md:text-right">
             // DETAILED SPECS FOR COMPLETED WORKSTATIONS
           </p> */}
@@ -35,15 +35,15 @@ export default function Projects() {
 
             // Mock statistical data for deep technical context
             const analysisStats = isEven ? [
-              { metric: "AVG LATENCY", value: "0.42ms", variance: "-12.4%" },
-              { metric: "THROUGHPUT", value: "850k req/s", variance: "+8.2%" },
-              { metric: "ERROR RATE", value: "0.0004%", variance: "NOMINAL" },
-              { metric: "UPTIME", value: "99.999%", variance: "STABLE" }
+              { metric: "Maximum Chunk Size", value: "25 MB", variance: "" },
+              { metric: "Metadata footprint / file", value: "~2–3 KB", variance: "±2%" },
+              { metric: "Host-side storage", value: "0 Payload", variance: "" },
+              { metric: "File integrity", value: "SHA-256 VERIFIED", variance: "" }
             ] : [
-              { metric: "CONCURRENT HITS", value: "2.4M/m", variance: "+18.5%" },
-              { metric: "COMPRESSION", value: "4.2x ratio", variance: "+4.1%" },
-              { metric: "CACHE HIT RATE", value: "96.8%", variance: "OPTIMAL" },
-              { metric: "FAILOVER TIME", value: "120ms", variance: "-42.1%" }
+              { metric: "Active Users", value: "500+ DAILY", variance: "±18.5%" },
+              { metric: "Uptime", value: "99.8%", variance: "±0.1%" },
+              { metric: "Architecture", value: "Role Based", variance: "" },
+              { metric: "Data Transfer Latency", value: "120ms", variance: "±42.1%" }
             ];
 
             return (
@@ -59,11 +59,12 @@ export default function Projects() {
                   </div> */}
 
                   <h3 className="font-display text-xl sm:text-2xl font-bold text-white uppercase tracking-tight">
-                    Performance Telemetry
+                    {project.title}
                   </h3>
 
-                  <p className="font-sans text-sm text-neutral-400 font-light leading-relaxed">
-                    Live production evaluation showcasing core platform metrics. The architecture handles horizontal expansion triggers effortlessly while strictly tracking sub-millisecond execution loops across containerized states.
+                  {/* Description */}
+                  <p className="font-sans text-sm text-neutral-400 font-light leading-relaxed mb-6 whitespace-pre-line">
+                    {project.description}
                   </p>
 
                   {/* Comprehensive Statistics Text Area - OPTIMIZED: removed backdrop-blur, solid bg */}
@@ -73,8 +74,8 @@ export default function Projects() {
                         <span className="text-[9px] text-neutral-500 block tracking-wider">{stat.metric}</span>
                         <div className="flex items-baseline gap-2 mt-1">
                           <span className="text-sm font-bold text-neutral-200">{stat.value}</span>
-                          <span className={`text-[8px] font-medium ${stat.variance.includes('+') ? 'text-emerald-400' :
-                              stat.variance.includes('-') ? (isEven ? 'text-orange-400' : 'text-amber-400') : 'text-neutral-500'
+                          <span className={`text-[8px] font-medium ${stat.variance.includes('±') ? 'text-emerald-400' :
+                            stat.variance.includes('-') ? (isEven ? 'text-emerald-400' : 'text-emerald-400') : 'text-neutral-500'
                             }`}>
                             {stat.variance}
                           </span>
@@ -90,8 +91,8 @@ export default function Projects() {
                       target="_blank"
                       rel="noreferrer"
                       className={`flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3 rounded-lg border font-semibold tracking-wider transition-all duration-300 shadow-md ${isEven
-                          ? 'bg-orange-950/30 border-orange-500/40 text-orange-400 hover:bg-orange-500/10 hover:border-orange-400 hover:shadow-[0_0_15px_rgba(249,115,22,0.2)]'
-                          : 'bg-amber-950/30 border-amber-500/40 text-amber-400 hover:bg-amber-500/10 hover:border-amber-400 hover:shadow-[0_0_15px_rgba(245,158,11,0.2)]'
+                        ? 'bg-orange-950/30 border-orange-500/40 text-orange-400 hover:bg-orange-500/10 hover:border-orange-400 hover:shadow-[0_0_15px_rgba(249,115,22,0.2)]'
+                        : 'bg-amber-950/30 border-amber-500/40 text-amber-400 hover:bg-amber-500/10 hover:border-amber-400 hover:shadow-[0_0_15px_rgba(245,158,11,0.2)]'
                         }`}
                     >
                       <ExternalLink className="w-4 h-4" />
@@ -119,8 +120,8 @@ export default function Projects() {
                 <div className={`lg:col-span-6 flex justify-center ${isEven ? 'order-1 lg:order-2 lg:justify-end' : 'order-1 lg:order-1 lg:justify-start'}`}>
                   <div
                     className={`group relative w-full max-w-[540px] rounded-xl bg-neutral-950/90 border border-neutral-900 overflow-hidden transition-all duration-500 flex flex-col justify-between transform-gpu ${isEven
-                        ? 'hover:border-orange-500/50 hover:shadow-[0_0_20px_rgba(249,115,22,0.15)]'
-                        : 'hover:border-amber-500/50 hover:shadow-[0_0_20px_rgba(245,158,11,0.15)]'
+                      ? 'hover:border-orange-500/50 hover:shadow-[0_0_20px_rgba(249,115,22,0.15)]'
+                      : 'hover:border-amber-500/50 hover:shadow-[0_0_20px_rgba(245,158,11,0.15)]'
                       }`}
                     style={{
                       boxShadow: 'inset 0 1px 1px rgba(255, 255, 255, 0.05)',

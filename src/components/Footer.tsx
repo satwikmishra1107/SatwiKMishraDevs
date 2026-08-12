@@ -161,7 +161,7 @@ export default function Footer() {
             <div className="flex items-center gap-2">
               <span className="h-[1px] w-8 bg-gradient-to-r from-orange-500 to-amber-500" />
               <span className="font-mono text-xs tracking-widest text-orange-400 font-bold">
-                04 // SECURE ACCESS RUNTIME
+                04 // LET'S CONNECT
               </span>
             </div>
 
@@ -173,7 +173,9 @@ export default function Footer() {
                 </span>
               </h2>
               <p className="font-sans text-sm text-neutral-400 font-light leading-relaxed">
-                The streaming particle timeline grounds out here into standard network architectures. Use interactive shell node targets to map secure linkages.
+                Open to interesting projects, meaningful conversations, and new opportunities. Please find the feasible routes below. 
+                {/* <br/>
+                Thank You for Visiting! */}
               </p>
             </div>
 
@@ -255,7 +257,7 @@ export default function Footer() {
             onClick={() => setIsContactOpen(true)}
             className="px-12 py-4 bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-500 hover:to-amber-400 text-black font-mono text-xs font-bold tracking-widest rounded shadow-[0_0_30px_rgba(249,115,22,0.15)] hover:shadow-[0_0_40px_rgba(249,115,22,0.3)] transition-all duration-300 transform-gpu hover:-translate-y-0.5 cursor-pointer uppercase pointer-events-auto"
           >
-            LAUNCH_CONTACT_TRANSMISSION_SYSTEM
+            LAUNCH_DIRECT_CONTACT
           </button>
         </div>
       </div>
@@ -268,7 +270,7 @@ export default function Footer() {
             <div className="bg-neutral-900 px-4 py-3 flex items-center justify-between border-b border-orange-500/10 font-mono text-xs text-neutral-400">
               <span className="flex items-center gap-2 font-bold text-orange-400">
                 <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
-                SEC_FORM_COMM // INPUT COMPILED
+                Cheers!
               </span>
               <button
                 onClick={() => setIsContactOpen(false)}
@@ -281,7 +283,7 @@ export default function Footer() {
 
             <form onSubmit={handleFormSubmit} className="p-6 space-y-4">
               <div className="space-y-1 font-mono text-xs">
-                <label className="text-neutral-500 block">SENDER_NAME:</label>
+                <label className="text-neutral-500 block">ALIAS:</label>
                 <input
                   type="text"
                   required
@@ -293,7 +295,7 @@ export default function Footer() {
               </div>
 
               <div className="space-y-1 font-mono text-xs">
-                <label className="text-neutral-500 block">SENDER_EMAIL:</label>
+                <label className="text-neutral-500 block">EMAIL:</label>
                 <input
                   type="email"
                   required
@@ -305,7 +307,7 @@ export default function Footer() {
               </div>
 
               <div className="space-y-1 font-mono text-xs">
-                <label className="text-neutral-500 block">TRANSMISSION_DATA:</label>
+                <label className="text-neutral-500 block">MESSAGE:</label>
                 <textarea
                   required
                   rows={4}
@@ -324,12 +326,12 @@ export default function Footer() {
                 {formSubmitted ? (
                   <>
                     <CheckCircle className="w-4 h-4 text-emerald-400" />
-                    <span>TRANSMITTING_STREAM...</span>
+                    <span>Transmitting...</span>
                   </>
                 ) : (
                   <>
                     <Send className="w-4 h-4 text-orange-400" />
-                    <span>TRANSMIT_PACKET</span>
+                    <span>Transmit</span>
                   </>
                 )}
               </button>
@@ -341,10 +343,10 @@ export default function Footer() {
       {/* Footer Meta: pointer-events-none on container, auto only on the scroll button */}
       <div className="border-t border-neutral-900 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-neutral-600 font-mono text-[9px] relative z-10 pointer-events-none">
         <div>
-          © 2026 // OPERATOR_TCS_DESIGNS // ALL RIGHTS CACHED INTO COMPILER BUFFER.
+          © 2026  // ALL RIGHTS UNRESERVED.
         </div>
         <div className="flex items-center gap-6">
-          <span className="text-orange-500/30 tracking-wider">SECURE_VOLCANIC_SHA_ACTIVE</span>
+          <span className="text-orange-500/30 tracking-wider">Thank you for visiting</span>
           <button
             onClick={scrollToTop}
             className="flex items-center gap-1 text-neutral-500 hover:text-white transition-colors group cursor-pointer transform-gpu pointer-events-auto"

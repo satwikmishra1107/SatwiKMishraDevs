@@ -84,7 +84,7 @@ export default function About() {
           <div className="flex items-center gap-2 mb-6">
             <span className="h-[1px] w-8 bg-orange-500" />
             <span className="font-mono text-xs tracking-widest text-orange-400">
-              01 // THE MANIFESTO
+              01 // THE ABOUT SECTION
             </span>
           </div>
 
@@ -99,11 +99,11 @@ export default function About() {
 
             <blockquote className="border-l-2 border-orange-400 pl-6 my-8 py-2 bg-gradient-to-r from-orange-950/20 to-transparent">
               <span className="font-sans text-lg sm:text-2xl text-neutral-400 italic block leading-relaxed">
-                "Our philosophy is simple. We build resilient layers with absolute precision,{' '}
                 <span className="font-display font-bold not-italic text-orange-400 tracking-wide block sm:inline">
                   {MANIFESTO.highlightPhrase}
                 </span>{' '}
-                This is the standard of systems integrity."
+                "Built for real systems, real users, and 
+                <br></br>real-world constraints"
               </span>
             </blockquote>
           </div>

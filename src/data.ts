@@ -1,101 +1,117 @@
-import { Project, Experience, Social } from './types';
+import { Project, Experience, Social } from "./types";
 
 export const MANIFESTO = {
-  title: "AESTHETIC ARCHITECTURE, BULLETPROOF INTEGRITY",
-  subtitle: "We build digital structures that transcend standard software constraints.",
-  body1: "I am a Senior Systems Developer focused on crafting high-throughput, fault-tolerant software. I bridge the gap between elegant interface design and hard-metal systems performance, ensuring every pixel is synchronized with robust backend infrastructure.",
-  highlightPhrase: "Engineering Solutions, Not Just Code.",
+  title: "SOFTWARE, SYSTEMS & CURIOSITY",
+  body1:
+    "Software engineering with a focus on backend systems, full-stack applications, and solving problems that are a little more complicated than they first appear",
+  highlightPhrase: "Performance. Reliability. Simplicity.",
   // body2: "My methodology is centered around performance constraints, extreme legacy modernization, and decentralized scalability. By blending high-fidelity visuals with rigid microservices orchestration, I define the sweet spot of creative systems engineering."
 };
 
 export const EXPERIENCES: Experience[] = [
   {
     id: "exp-1",
-    role: "Senior Systems Engineer",
+    role: "Systems Engineer",
     company: "TCS",
     period: "2024 — PRESENT",
     highlights: [
-      "Architected the migration of critical core banking workflows, delivering modern reactive microservices to replace monolithic legacy bottlenecks.",
-      "Spearheaded distributed storage optimization and custom caching layers, achieving a 90% Latency Reduction across API ingestion gateways.",
-      "Established strict SLA compliance frameworks and automatic self-healing routines for multi-region active-active clusters."
+
+    "Enterprise software modernization across backend architecture, performance optimization, legacy migration, and production tooling.",
+    
     ],
-    techStack: ["Java/Spring Boot", "Rust", "Apache Kafka", "PostgreSQL", "Kubernetes", "gRPC"],
+    techStack: [
+      "Java",
+      "Spring Boot",
+      "PL/SQL",
+      "RestAPI",
+      "Linux RHEL",
+    ],
     metrics: [
       { label: "LATENCY REDUCTION", value: "90%" },
       { label: "LEGACY MODERNIZATION", value: "CORE SYSTEM" },
-      { label: "THROUGHPUT STABILITY", value: "99.999%" }
-    ]
+      { label: "THROUGHPUT STABILITY", value: "99.999%" },
+    ],
   },
   {
     id: "exp-2",
-    role: "Systems Engineer",
-    company: "TCS",
-    period: "2021 — 2024",
+    role: "B.Tech. — ECE",
+    company: "IIIT Tiruchirappalli",
+    period: "2020 — 2024",
     highlights: [
-      "Executed comprehensive legacy modernization modules for high-availability enterprise services handling 10M+ daily transactions.",
-      "Pioneered an internal telemetry toolkit that diagnosed real-time JVM thread starvation issues, accelerating debugging cycles by 40%.",
-      "Designed event-driven transaction logs via Apache Kafka, eliminating message loss and increasing synchronization consistency."
+      "A foundation in electronics, communication systems, and engineering that eventually led toward software and systems development.",
     ],
-    techStack: ["Java", "Docker", "Apache Kafka", "Elasticsearch", "Prometheus", "Spring Cloud"],
+    techStack: [
+      "C/C++",
+      "MERN",
+      "Algorithms",
+      "System Design",
+      "Data Structures",
+    ],
     metrics: [
       { label: "PROCESS SPEEDUP", value: "4.2X" },
       { label: "EVENT CONCURRENCY", value: "50K/sec" },
-      { label: "MONITORING AUDIT", value: "REAL-TIME" }
-    ]
-  }
+      { label: "MONITORING AUDIT", value: "REAL-TIME" },
+    ],
+  },
 ];
 
 export const PROJECTS: Project[] = [
   {
     id: "proj-1",
-    title: "Distributed Storage Layer",
-    description: "A secure, resilient peer-to-peer storage fabric built to optimize dynamic block indexing, featuring autonomous node discovery, zero-knowledge metadata consensus, and a real-time reactive admin HUD.",
-    tags: ["Rust", "gRPC", "WebAssembly", "React", "Tailwind CSS"],
+    title: "CHUNKY DISCORD",
+    description: `Was running out of storage and that led to a simple question: why build another storage server when Discord already stores files for free? \n Chunky Discord splits large files into chunks, as there's a rate limit in discord, tags them with a SHA-256 hash for identification and integrity checks, and stores them in a private Discord server. So that you are left with the lightweight metadata which stays on the server, allowing files to be located, verified, reassembled, and retrieved on demand and in realtime.`,
+    tags: [
+      "ReactJS",
+      "NodeJS",
+      "AWS EC2",
+      "Distributed Storage",
+      "Rate Limiting",
+    ],
     thumbnail: "/src/assets/ProjectOne.png",
     demoUrl: "#",
     githubUrl: "https://github.com",
     stats: [
-      { label: "UPTIME RATIO", value: "99.998%" },
+      { label: "Maximum chunk size", value: "99.998%" },
       { label: "BLOCK READ LATENCY", value: "1.4ms" },
-      { label: "NODE LIMIT", value: "INFINITE" }
-    ]
+      { label: "NODE LIMIT", value: "INFINITE" },
+    ],
   },
   {
     id: "proj-2",
-    title: "Enterprise Release Management System",
-    description: "An automated multi-cloud CI/CD deployment orchestrator. Safely routes compiled artifact bundles across staging grids using predictive health telemetry, rolling container restarts, and granular rollback gates.",
+    title: "PDN Tracker (ERMS)",
+    description: "When the existing PDN tracking tool had to be retired because of security concerns, the workflow temporarily fell back to Excel. PDN Tracker was built from scratch to replace it with a role-based system for developers, reviewers, testers, and deployers, taking each delivery from submission through review and deployment while keeping every handoff traceable.",
     tags: ["Go", "Kubernetes API", "GraphQL", "TypeScript", "GSAP"],
-    thumbnail: "/src/assets/images/release_system_1784107506739.jpg",
+    thumbnail: "/src/assets/ProjectTwo.png",
     demoUrl: "#",
     githubUrl: "https://github.com",
     stats: [
       { label: "BUILD DEPLOY TIME", value: "<12s" },
       { label: "ROLLBACK ACCURACY", value: "100.0%" },
-      { label: "TELEMETRY OVERHEAD", value: "<0.8%" }
-    ]
-  }
+      { label: "TELEMETRY OVERHEAD", value: "<0.8%" },
+    ],
+  },
 ];
 
 export const SOCIALS: Social[] = [
   {
     id: "soc-1",
     name: "LinkedIn",
-    url: "https://linkedin.com",
+    url: "https://www.linkedin.com/in/satwik-mishra-1107-/",
     iconName: "Linkedin",
-    terminalCommand: "cat /dev/social/linkedin"
+    terminalCommand: "cat /dev/social/linkedin",
   },
   {
     id: "soc-2",
     name: "GitHub",
-    url: "https://github.com",
+    url: "https://github.com/satwikmishra1107",
     iconName: "Github",
-    terminalCommand: "cat /dev/social/github"
+    terminalCommand: "cat /dev/social/github",
   },
   {
     id: "soc-3",
     name: "LeetCode",
-    url: "https://leetcode.com",
+    url: "https://leetcode.com/u/satwik_mishra11/",
     iconName: "Code",
-    terminalCommand: "cat /dev/social/leetcode"
-  }
+    terminalCommand: "cat /dev/social/leetcode",
+  },
 ];

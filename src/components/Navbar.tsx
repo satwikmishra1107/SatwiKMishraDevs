@@ -55,11 +55,11 @@ export default function Navbar() {
   };
 
   const navItems = [
-    { id: 'hero', label: 'SYS_INIT', icon: Cpu },
-    { id: 'about', label: 'MANIFESTO', icon: Layers },
-    { id: 'experience', label: 'TELEMETRY', icon: Disc },
-    { id: 'projects', label: 'BUILDS', icon: Hammer },
-    { id: 'footer', label: 'CONNECT', icon: Terminal },
+    { id: 'hero', label: 'HERO', icon: Cpu },
+    { id: 'about', label: 'ABOUT', icon: Layers },
+    { id: 'experience', label: 'EXPERIENCE', icon: Disc },
+    { id: 'projects', label: 'PROJECTS', icon: Hammer },
+    { id: 'footer', label: 'CONTACT', icon: Terminal },
   ];
 
   return (
@@ -73,7 +73,7 @@ export default function Navbar() {
           <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
         </span>
         <span className="font-mono text-xs tracking-wider font-semibold text-neutral-300">
-          SYS_OPERATOR // <span className="text-orange-400">DEV.TCS</span>
+          Hey friend // <span className="text-orange-400">Welcome</span>
         </span>
       </div>
 
@@ -100,7 +100,7 @@ export default function Navbar() {
 
       <div className="hidden lg:flex flex-col items-end bg-black/95 border border-neutral-800/80 px-4 py-2 rounded-xl pointer-events-auto font-mono text-[10px] text-neutral-400 leading-tight">
         <div>
-          SYS_STATUS: <span className="text-emerald-400 font-bold">ONLINE</span>
+          Portfolio Status: <span className="text-emerald-400 font-bold">Working</span>
         </div>
         <div className="text-[9px] text-neutral-500 font-medium tracking-wide mt-0.5">
           {/* 2. Inject the isolated clock component here */}
