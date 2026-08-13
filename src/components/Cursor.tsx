@@ -17,7 +17,7 @@ export default function Cursor() {
       if (!fireflyRef.current) return;
 
       const SCALE = 2.45;
-      const OFFSET_X = 0;
+      const OFFSET_X = 5;
       const OFFSET_Y = 110;
 
       // Calculate the new coordinates directly from the event
