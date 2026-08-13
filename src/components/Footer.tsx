@@ -76,31 +76,47 @@ export default function Footer() {
 
     setTerminalLogs((prev) => [...prev, { text: `> ${cleanCmd}`, type: 'input' }]);
 
-    if (cleanCmd.toLowerCase() === 'clear') {
+    const lowerCmd = cleanCmd.toLowerCase();
+
+    // Check for clear screen commands first
+    if (lowerCmd === 'clear' || lowerCmd === 'cls') {
       setTerminalLogs([]);
       setInputValue('');
       return;
     }
 
-    let targetResponse = `shell: payload route unrecognized: ${cleanCmd}`;
+    let targetResponse = `shell: payload route unrecognized: ${cleanCmd}. Try typing 'help'.`;
     let isMatch = false;
 
-    if (cleanCmd.toLowerCase().includes('linkedin')) {
+    // Social & Functional Routing
+    if (lowerCmd.includes('linkedin')) {
       targetResponse = 'LINKEDIN ACCESS PROTOCOL INITIATED. BRIDGING PORT...';
       isMatch = true;
       if (linkUrl) setTimeout(() => window.open(linkUrl, '_blank'), 1200);
-    } else if (cleanCmd.toLowerCase().includes('github')) {
+    } else if (lowerCmd.includes('github')) {
       targetResponse = 'GITHUB SHELL PIPELINE VERIFIED. SPOOLING ENVIRONMENT...';
       isMatch = true;
       if (linkUrl) setTimeout(() => window.open(linkUrl, '_blank'), 1200);
-    } else if (cleanCmd.toLowerCase().includes('leetcode')) {
+    } else if (lowerCmd.includes('leetcode')) {
       targetResponse = 'LEETCODE RUNTIME ALLOCATION SUCCESSFUL. SYNCHRONIZING...';
       isMatch = true;
       if (linkUrl) setTimeout(() => window.open(linkUrl, '_blank'), 1200);
-    } else if (cleanCmd.toLowerCase() === 'help') {
-      targetResponse = 'VALID MATRIX COMMANDS: [cat /dev/social/linkedin, cat /dev/social/github, cat /dev/social/leetcode, clear, help]';
+    }
+    // Pre-built Replies & Easter Eggs
+    else if (lowerCmd === 'help') {
+      targetResponse = 'Valid commands are as follows: [cat /dev/social/linkedin, cat /dev/social/github, clear, cls, hello, whoami, ping]';
+    } else if (lowerCmd === 'hello' || lowerCmd === 'hi' || lowerCmd === 'hey') {
+      targetResponse = "GREETINGS VISITOR. Welcome to Satwik's terminal interface. Connection stable.";
+      isMatch = true; // Setting to true gives the greeting a cool typewriter animation
+    } else if (lowerCmd === 'ping') {
+      targetResponse = 'PONG. Network latency: 12ms. All systems operational.';
+    } else if (lowerCmd === 'whoami') {
+      targetResponse = 'GUEST_USER. Access level: VISITOR. Permissions: READ_ONLY.';
+    } else if (lowerCmd.includes('sudo') || lowerCmd.includes('rm -rf')) {
+      targetResponse = 'ACCESS DENIED. This incident has been logged and reported 0_0';
     }
 
+    // Trigger Typewriter or Instant Print
     if (isMatch) {
       triggerTypewriterResponse(targetResponse);
     } else {
@@ -116,18 +132,45 @@ export default function Footer() {
     }
   };
 
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
 
     setFormSubmitted(true);
-    setTimeout(() => {
+
+    try {
+      // Sends the payload to your email via Web3Forms API
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "db080172-5c11-4395-8554-6cb684819977", // <-- Put your access key here
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        }),
+      });
+
+      if (response.ok) {
+        setTerminalLogs((prev) => [...prev, { text: `> dispatch_packet --source="${formData.name}"`, type: 'input' }]);
+        triggerTypewriterResponse(`STATUS 200: TRANSMISSION RECORDED. Message converges securely.`);
+      } else {
+        setTerminalLogs((prev) => [...prev, { text: `> dispatch_packet --source="${formData.name}"`, type: 'input' }]);
+        triggerTypewriterResponse(`ERROR 500: TRANSMISSION REJECTED. Please try again.`);
+      }
+    } catch (error) {
       setTerminalLogs((prev) => [...prev, { text: `> dispatch_packet --source="${formData.name}"`, type: 'input' }]);
-      triggerTypewriterResponse(`STATUS 200: TRANSMISSION RECORDED. Message converges securely.`);
-      setFormData({ name: '', email: '', message: '' });
-      setFormSubmitted(false);
-      setIsContactOpen(false);
-    }, 1500);
+      triggerTypewriterResponse(`ERROR 500: NETWORK FAILURE. Could not establish connection.`);
+    } finally {
+      setTimeout(() => {
+        setFormData({ name: '', email: '', message: '' });
+        setFormSubmitted(false);
+        setIsContactOpen(false);
+      }, 1500);
+    }
   };
 
   const scrollToTop = () => {
@@ -173,7 +216,7 @@ export default function Footer() {
                 </span>
               </h2>
               <p className="font-sans text-sm text-neutral-400 font-light leading-relaxed">
-                Open to interesting projects, meaningful conversations, and new opportunities. Please find the feasible routes below. 
+                Open to interesting projects, meaningful conversations, and new opportunities. Please find the feasible routes below.
                 {/* <br/>
                 Thank You for Visiting! */}
               </p>
@@ -264,7 +307,7 @@ export default function Footer() {
 
       {/* Contact Overlay Modal */}
       {isContactOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 cursor-auto">
           <div className="w-full max-w-md bg-neutral-950 border border-orange-500/20 rounded-xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.8)]">
 
             <div className="bg-neutral-900 px-4 py-3 flex items-center justify-between border-b border-orange-500/10 font-mono text-xs text-neutral-400">
@@ -325,7 +368,7 @@ export default function Footer() {
               >
                 {formSubmitted ? (
                   <>
-                    <CheckCircle className="w-4 h-4 text-emerald-400" />
+                    {/* <CheckCircle className="w-4 h-4 text-emerald-400" /> */}
                     <span>Transmitting...</span>
                   </>
                 ) : (

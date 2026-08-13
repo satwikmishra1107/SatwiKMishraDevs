@@ -30,7 +30,7 @@ export default function Cursor() {
     };
 
     window.addEventListener('mousemove', handleMouseMove);
-    
+
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
     };
@@ -38,7 +38,7 @@ export default function Cursor() {
 
   return (
     <div
-      className="fixed inset-0 z-50 pointer-events-none"
+      className="fixed inset-0 z-[999] pointer-events-none"
       style={{
         mixBlendMode: 'screen',
         clipPath:
