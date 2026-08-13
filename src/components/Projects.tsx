@@ -37,9 +37,6 @@ export default function Projects() {
           <h4 className="text-3xl sm:text-3xl font-display font-bold text-white tracking-tight leading-none">
             A Few Systems Built To Solve Real Problems.
           </h4>
-          {/* <p className="font-mono text-xs text-neutral-500 max-w-sm md:text-right">
-            // DETAILED SPECS FOR COMPLETED WORKSTATIONS
-          </p> */}
         </div>
 
         {/* Dynamic Alternating Row Structure */}
@@ -47,7 +44,6 @@ export default function Projects() {
           {PROJECTS.map((project, index) => {
             const isEven = index % 2 === 0;
 
-            // Mock statistical data for deep technical context
             const analysisStats = isEven ? [
               { metric: "Maximum Chunk Size", value: "25 MB", variance: "" },
               { metric: "Metadata footprint / file", value: "~2–3 KB", variance: "±2%" },

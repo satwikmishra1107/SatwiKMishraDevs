@@ -27,7 +27,7 @@ export default function Footer() {
     const ctx = gsap.context(() => {
       ScrollTrigger.create({
         trigger: footerRef.current,
-        start: 'top 120%', // Triggers early, replicating rootMargin: '200px'
+        start: 'top 120%',
         onToggle: (self) => setIsOrbMounted(self.isActive),
       });
     }, footerRef);
@@ -257,8 +257,6 @@ export default function Footer() {
               </h2>
               <p className="font-sans text-sm text-neutral-400 font-light leading-relaxed">
                 Open to interesting projects, meaningful conversations, and new opportunities. Please find the feasible routes below.
-                {/* <br/>
-                Thank You for Visiting! */}
               </p>
             </div>
 
