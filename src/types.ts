@@ -6,6 +6,7 @@ export interface Project {
   thumbnail: string;
   demoUrl?: string;
   githubUrl?: string;
+  status: string;
   stats: { label: string; value: string }[];
 }
 

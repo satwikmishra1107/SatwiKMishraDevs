@@ -78,47 +78,53 @@ export default function Footer() {
 
     const lowerCmd = cleanCmd.toLowerCase();
 
-    // Check for clear screen commands first
     if (lowerCmd === 'clear' || lowerCmd === 'cls') {
       setTerminalLogs([]);
       setInputValue('');
       return;
     }
 
+    // Helper to look up the URL from SOCIALS if linkUrl wasn't passed via input
+    const getSocialUrl = (key: string) => {
+      if (linkUrl) return linkUrl;
+      const found = SOCIALS.find(
+        (s) => s.id.toLowerCase().includes(key) || s.terminalCommand.toLowerCase().includes(key)
+      );
+      return found ? found.url : null;
+    };
+
     let targetResponse = `shell: payload route unrecognized: ${cleanCmd}. Try typing 'help'.`;
     let isMatch = false;
+    let targetUrl: string | null = null;
 
-    // Social & Functional Routing
     if (lowerCmd.includes('linkedin')) {
       targetResponse = 'LINKEDIN ACCESS PROTOCOL INITIATED. BRIDGING PORT...';
       isMatch = true;
-      if (linkUrl) setTimeout(() => window.open(linkUrl, '_blank'), 1200);
+      targetUrl = getSocialUrl('linkedin');
     } else if (lowerCmd.includes('github')) {
       targetResponse = 'GITHUB SHELL PIPELINE VERIFIED. SPOOLING ENVIRONMENT...';
       isMatch = true;
-      if (linkUrl) setTimeout(() => window.open(linkUrl, '_blank'), 1200);
+      targetUrl = getSocialUrl('github');
     } else if (lowerCmd.includes('leetcode')) {
       targetResponse = 'LEETCODE RUNTIME ALLOCATION SUCCESSFUL. SYNCHRONIZING...';
       isMatch = true;
-      if (linkUrl) setTimeout(() => window.open(linkUrl, '_blank'), 1200);
-    }
-    // Pre-built Replies & Easter Eggs
-    else if (lowerCmd === 'help') {
-      targetResponse = 'Valid commands are as follows: [cat /dev/social/linkedin, cat /dev/social/github, clear, cls, hello, whoami, ping]';
-    } else if (lowerCmd === 'hello' || lowerCmd === 'hi' || lowerCmd === 'hey') {
-      targetResponse = "GREETINGS VISITOR. Welcome to Satwik's terminal interface. Connection stable.";
-      isMatch = true; // Setting to true gives the greeting a cool typewriter animation
-    } else if (lowerCmd === 'ping') {
-      targetResponse = 'PONG. Network latency: 12ms. All systems operational.';
-    } else if (lowerCmd === 'whoami') {
-      targetResponse = 'GUEST_USER. Access level: VISITOR. Permissions: READ_ONLY.';
-    } else if (lowerCmd.includes('sudo') || lowerCmd.includes('rm -rf')) {
-      targetResponse = 'ACCESS DENIED. This incident has been logged and reported 0_0';
+      targetUrl = getSocialUrl('leetcode');
+    } else if (lowerCmd === 'help') {
+      targetResponse = 'VALID MATRIX COMMANDS: [cat /dev/social/linkedin, cat /dev/social/github, cat /dev/social/leetcode, clear, cls, hello, ping]';
+    } else if (lowerCmd === 'hello' || lowerCmd === 'hi') {
+      targetResponse = "GREETINGS VISITOR. Welcome to the terminal interface.";
+      isMatch = true;
     }
 
-    // Trigger Typewriter or Instant Print
     if (isMatch) {
       triggerTypewriterResponse(targetResponse);
+
+      if (targetUrl) {
+        const destination = targetUrl;
+        setTimeout(() => {
+          window.open(destination, '_blank', 'noopener,noreferrer');
+        }, 600);
+      }
     } else {
       setTerminalLogs((prev) => [...prev, { text: targetResponse, type: 'system' }]);
     }

@@ -2,6 +2,20 @@ import { PROJECTS } from '../data';
 import { ExternalLink, Github, Layers, Server } from 'lucide-react';
 
 export default function Projects() {
+
+  const getStatusColor = (status?: string) => {
+    switch (status?.toUpperCase()) {
+      case 'ACTIVE':
+        return 'text-emerald-400';
+      case 'UNDER MAINTENANCE':
+        return 'text-yellow-400';
+      case 'DOWN':
+        return 'text-red-500';
+      default:
+        return 'text-neutral-500';
+    }
+  };
+
   return (
     <section
       id="projects"
@@ -156,36 +170,15 @@ export default function Projects() {
                             </span>
                           ))}
                         </div>
-
-                        {/* Title */}
-                        {/* <h3 className={`font-display text-2xl font-bold text-white mb-3 transition-colors duration-300 ${isEven ? 'group-hover:text-orange-400' : 'group-hover:text-amber-400'}`}>
-                          {project.title}
-                        </h3> */}
-
-                        {/* Description */}
-                        {/* <p className="font-sans text-sm text-neutral-400 font-light leading-relaxed mb-6">
-                          {project.description}
-                        </p> */}
                       </div>
 
                       {/* Project specific specifications grid */}
                       <div>
-                        {/* <div className="grid grid-cols-3 gap-2 bg-neutral-950/60 p-4 rounded-lg border border-neutral-900 font-mono text-center">
-                          {project.stats.map((stat) => (
-                            <div key={stat.label}>
-                              <div className="text-[8px] text-neutral-500 uppercase tracking-widest">
-                                {stat.label}
-                              </div>
-                              <div className={`text-xs font-semibold mt-1 ${isEven ? 'text-orange-400' : 'text-amber-400'}`}>
-                                {stat.value}
-                              </div>
-                            </div>
-                          ))}
-                        </div> */}
-
                         {/* Embedded Micro Status Indicator */}
                         <div className="border-t border-neutral-900/50 font-mono text-[10px] text-neutral-500">
-                          STATUS: <span className="text-emerald-400 font-semibold">ONLINE // DEPLOYED</span>
+                          STATUS: <span className={`font-semibold ${getStatusColor(project.status)}`}>
+                            {project.status}
+                          </span>
                         </div>
                       </div>
 

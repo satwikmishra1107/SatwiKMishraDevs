@@ -7,7 +7,6 @@ export const MANIFESTO = {
   body1:
     "Software engineering with a focus on backend systems, full-stack applications, and solving problems that are a little more complicated than they first appear",
   highlightPhrase: "Performance. Reliability. Simplicity.",
-  // body2: "My methodology is centered around performance constraints, extreme legacy modernization, and decentralized scalability. By blending high-fidelity visuals with rigid microservices orchestration, I define the sweet spot of creative systems engineering."
 };
 
 export const EXPERIENCES: Experience[] = [
@@ -63,6 +62,7 @@ export const PROJECTS: Project[] = [
     ],
     thumbnail: ProjectOne,
     demoUrl: "#",
+    status: "UNDER MAINTENANCE",
     githubUrl: "https://github.com",
     stats: [
       { label: "Maximum chunk size", value: "99.998%" },
@@ -78,6 +78,7 @@ export const PROJECTS: Project[] = [
     tags: ["Go", "Kubernetes API", "GraphQL", "TypeScript", "GSAP"],
     thumbnail: ProjectTwo,
     demoUrl: "#",
+    status:"UNDER MAINTENANCE",
     githubUrl: "https://github.com",
     stats: [
       { label: "BUILD DEPLOY TIME", value: "<12s" },
