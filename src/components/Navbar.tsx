@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Terminal, Cpu, Layers, Disc, Hammer } from 'lucide-react';
 
-// 1. Extract the clock logic into an isolated micro-component
 const SystemClock = () => {
   const [systemTime, setSystemTime] = useState('');
 
@@ -21,8 +20,6 @@ const SystemClock = () => {
 export default function Navbar() {
   const [activeSection, setActiveSection] = useState('hero');
   
-  // Notice we removed the systemTime state and its useEffect from here.
-
   useEffect(() => {
     const sections = ['hero', 'about', 'experience', 'projects', 'footer'];
     const elements = sections
@@ -103,7 +100,6 @@ export default function Navbar() {
           Portfolio Status: <span className="text-emerald-400 font-bold">Working</span>
         </div>
         <div className="text-[9px] text-neutral-500 font-medium tracking-wide mt-0.5">
-          {/* 2. Inject the isolated clock component here */}
           <SystemClock />
         </div>
       </div>
