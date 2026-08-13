@@ -19,7 +19,7 @@ export default function Footer() {
 
   const [isOrbMounted, setIsOrbMounted] = useState(false);
   const footerRef = useRef<HTMLElement>(null);
-  const terminalEndRef = useRef<HTMLDivElement>(null);
+  const terminalContainerRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     if (!footerRef.current) return;
@@ -36,7 +36,13 @@ export default function Footer() {
   }, []);
 
   useEffect(() => {
-    terminalEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    if (terminalContainerRef.current) {
+      // Smoothly scrolls to the bottom of the terminal container only
+      terminalContainerRef.current.scrollTo({
+        top: terminalContainerRef.current.scrollHeight,
+        behavior: 'smooth'
+      });
+    }
   }, [terminalLogs]);
 
   useEffect(() => {
@@ -293,6 +299,7 @@ export default function Footer() {
 
               {/* Console Output Screen Area */}
               <div
+                ref={terminalContainerRef}
                 data-lenis-prevent
                 className="p-5 h-64 overflow-y-auto overscroll-contain font-mono text-xs space-y-3 scrollbar-none text-neutral-300"
               >                {terminalLogs.map((log, index) => (
@@ -308,7 +315,6 @@ export default function Footer() {
                   )}
                 </div>
               ))}
-                <div ref={terminalEndRef} />
               </div>
 
               {/* Input Command Line Row */}

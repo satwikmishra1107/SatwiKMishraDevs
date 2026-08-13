@@ -51,12 +51,6 @@ export default function App() {
 
     window.scrollTo(0, 0);
 
-    // Block scrolling entirely while Hero/Cursor/FooterOrb Splines and the
-    // About R3F canvas are still loading. Nothing can scroll the page —
-    // no focus-steal, no ScrollTrigger refresh, nothing — while this is on.
-    document.documentElement.style.overflow = 'hidden';
-    document.body.style.overflow = 'hidden';
-
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -66,10 +60,14 @@ export default function App() {
     });
 
     lenis.scrollTo(0, { immediate: true });
+
     (window as any).lenis = lenis;
     lenis.on('scroll', ScrollTrigger.update);
 
-    const raf = (time: number) => lenis.raf(time * 1000);
+    const raf = (time: number) => {
+      lenis.raf(time * 1000);
+    };
+
     gsap.ticker.add(raf);
     gsap.ticker.lagSmoothing(0);
 
@@ -121,25 +119,16 @@ export default function App() {
       });
     });
 
-    // Release the lock once all canvases have had time to finish loading
-    const settle = setTimeout(() => {
-      document.documentElement.style.overflow = '';
-      document.body.style.overflow = '';
-      window.scrollTo(0, 0);
-      lenis.scrollTo(0, { immediate: true });
-      ScrollTrigger.refresh();
-    }, 1200);
+    // We can remove the old load listeners here because 
+    // the parent useEffect now guarantees everything is ready
+    ScrollTrigger.refresh();
 
     return () => {
-      clearTimeout(settle);
-      document.documentElement.style.overflow = '';
-      document.body.style.overflow = '';
       lenis.destroy();
       gsap.ticker.remove(raf);
       ctx.revert();
     };
-  }, [isLoading]);
-
+  }, [isLoading]); 
 
   // 3. Render Loading Screen
   // 3. Render Loading Screen
