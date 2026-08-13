@@ -32,6 +32,12 @@ body,
   cursor: none;
 }
 
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
 ::-webkit-scrollbar {
   width: 6px;
 }
