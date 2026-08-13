@@ -53,10 +53,6 @@ export default function Projects() {
               >
                 {/* Statistical Data, Explanatory Text, and Main Actions */}
                 <div className={`lg:col-span-6 space-y-6 ${isEven ? 'order-2 lg:order-1' : 'order-2 lg:order-2'}`}>
-                  {/* <div className="flex items-center gap-2 font-mono text-[10px]">
-                    <span className={`w-1.5 h-1.5 rounded-full ${isEven ? 'bg-orange-400' : 'bg-amber-400'} animate-pulse`} />
-                    <span className="text-neutral-400 tracking-wider">SYSTEM_ANALYSIS // MODULE_0{index + 1}</span>
-                  </div> */}
 
                   <h3 className="font-display text-xl sm:text-2xl font-bold text-white uppercase tracking-tight">
                     {project.title}
@@ -109,11 +105,6 @@ export default function Projects() {
                       <span>EXPLORE_SOURCE</span>
                     </a>
                   </div>
-
-                  {/* <div className="p-4 rounded-lg bg-gradient-to-r from-neutral-950 to-transparent border-l border-neutral-800 font-mono text-[10px] text-neutral-500 leading-relaxed">
-                    <span className="text-neutral-400 block mb-1">■ ARCHITECTURAL DEPLOYMENT NOTE</span>
-                    Continuous integrity checks verify zero structural regression during massive traffic spikes. Failover paths remain active with localized state synchronization.
-                  </div> */}
                 </div>
 
                 {/* The Project Cards - OPTIMIZED: removed backdrop-blur, solid bg, added transform-gpu */}

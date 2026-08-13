@@ -1,4 +1,6 @@
 import { Project, Experience, Social } from "./types";
+import ProjectOne from "./assets/ProjectOne.png";
+import ProjectTwo from "./assets/ProjectTwo.png";
 
 export const MANIFESTO = {
   title: "SOFTWARE, SYSTEMS & CURIOSITY",
@@ -15,17 +17,9 @@ export const EXPERIENCES: Experience[] = [
     company: "TCS",
     period: "2024 — PRESENT",
     highlights: [
-
-    "Enterprise software modernization across backend architecture, performance optimization, legacy migration, and production tooling.",
-    
+      "Enterprise software modernization across backend architecture, performance optimization, legacy migration, and production tooling.",
     ],
-    techStack: [
-      "Java",
-      "Spring Boot",
-      "PL/SQL",
-      "RestAPI",
-      "Linux RHEL",
-    ],
+    techStack: ["Java", "Spring Boot", "PL/SQL", "RestAPI", "Linux RHEL"],
     metrics: [
       { label: "LATENCY REDUCTION", value: "90%" },
       { label: "LEGACY MODERNIZATION", value: "CORE SYSTEM" },
@@ -67,7 +61,7 @@ export const PROJECTS: Project[] = [
       "Distributed Storage",
       "Rate Limiting",
     ],
-    thumbnail: "/src/assets/ProjectOne.png",
+    thumbnail: ProjectOne,
     demoUrl: "#",
     githubUrl: "https://github.com",
     stats: [
@@ -79,9 +73,10 @@ export const PROJECTS: Project[] = [
   {
     id: "proj-2",
     title: "PDN Tracker (ERMS)",
-    description: "When the existing PDN tracking tool had to be retired because of security concerns, the workflow temporarily fell back to Excel. PDN Tracker was built from scratch to replace it with a role-based system for developers, reviewers, testers, and deployers, taking each delivery from submission through review and deployment while keeping every handoff traceable.",
+    description:
+      "When the existing PDN tracking tool had to be retired because of security concerns, the workflow temporarily fell back to Excel. PDN Tracker was built from scratch to replace it with a role-based system for developers, reviewers, testers, and deployers, taking each delivery from submission through review and deployment while keeping every handoff traceable.",
     tags: ["Go", "Kubernetes API", "GraphQL", "TypeScript", "GSAP"],
-    thumbnail: "/src/assets/ProjectTwo.png",
+    thumbnail: ProjectTwo,
     demoUrl: "#",
     githubUrl: "https://github.com",
     stats: [
