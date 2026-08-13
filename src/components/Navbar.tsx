@@ -6,9 +6,17 @@ const SystemClock = () => {
 
   useEffect(() => {
     const updateTime = () => {
-      const now = new Date();
-      setSystemTime(now.toUTCString().replace('GMT', 'UTC'));
+      const localTime = new Date().toLocaleTimeString('en-US', {
+        hour12: false,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        timeZoneName: 'short',
+      });
+
+      setSystemTime(localTime);
     };
+
     updateTime();
     const interval = setInterval(updateTime, 1000);
     return () => clearInterval(interval);
@@ -19,7 +27,7 @@ const SystemClock = () => {
 
 export default function Navbar() {
   const [activeSection, setActiveSection] = useState('hero');
-  
+
   useEffect(() => {
     const sections = ['hero', 'about', 'experience', 'projects', 'footer'];
     const elements = sections
@@ -82,11 +90,10 @@ export default function Navbar() {
             <button
               key={item.id}
               onClick={() => scrollTo(item.id)}
-              className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full font-mono text-[11px] tracking-wider transition-all duration-300 ${
-                isActive
-                  ? 'bg-gradient-to-r from-orange-950/40 to-amber-950/40 border border-orange-500/50 text-orange-400 shadow-[0_0_15px_rgba(249,115,22,0.15)]'
-                  : 'text-neutral-400 hover:text-neutral-200 hover:bg-neutral-900/50 border border-transparent'
-              }`}
+              className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full font-mono text-[11px] tracking-wider transition-all duration-300 ${isActive
+                ? 'bg-gradient-to-r from-orange-950/40 to-amber-950/40 border border-orange-500/50 text-orange-400 shadow-[0_0_15px_rgba(249,115,22,0.15)]'
+                : 'text-neutral-400 hover:text-neutral-200 hover:bg-neutral-900/50 border border-transparent'
+                }`}
             >
               <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-orange-400' : 'text-neutral-500'}`} />
               {item.label}

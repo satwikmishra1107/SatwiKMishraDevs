@@ -84,7 +84,6 @@ export default function Footer() {
       return;
     }
 
-    // Helper to look up the URL from SOCIALS if linkUrl wasn't passed via input
     const getSocialUrl = (key: string) => {
       if (linkUrl) return linkUrl;
       const found = SOCIALS.find(
@@ -110,9 +109,45 @@ export default function Footer() {
       isMatch = true;
       targetUrl = getSocialUrl('leetcode');
     } else if (lowerCmd === 'help') {
-      targetResponse = 'VALID MATRIX COMMANDS: [cat /dev/social/linkedin, cat /dev/social/github, cat /dev/social/leetcode, clear, cls, hello, ping]';
+      targetResponse =
+        'Here are the following valid commands: [cat /dev/social/linkedin, cat /dev/social/github, cat /dev/social/leetcode, whoami, sudo, ping, date, echo <msg>, matrix, coffee, 42, clear, cls, hello]';
+      isMatch = true;
     } else if (lowerCmd === 'hello' || lowerCmd === 'hi') {
-      targetResponse = "GREETINGS VISITOR. Welcome to the terminal interface.";
+      targetResponse = 'GREETINGS VISITOR. Welcome to the terminal interface.';
+      isMatch = true;
+    } else if (lowerCmd === 'ping') {
+      targetResponse = 'PONG. LATENCY: 0.02ms. CONNECTION STABLE.';
+      isMatch = true;
+    } else if (lowerCmd === 'whoami') {
+      targetResponse = 'GUEST_USER — ACCESS LEVEL: CURIOUS. CLEARANCE GRANTED FOR /dev/social/*';
+      isMatch = true;
+    } else if (lowerCmd === 'pwd') {
+      targetResponse = '/home/portfolio/terminal';
+      isMatch = true;
+    } else if (lowerCmd === 'ls' || lowerCmd === 'ls -la') {
+      targetResponse = 'linkedin.sh  github.sh  leetcode.sh  secrets.txt (permission denied)';
+      isMatch = true;
+    } else if (lowerCmd === 'date') {
+      targetResponse = `SYSTEM CLOCK: ${new Date().toString()}`;
+      isMatch = true;
+    } else if (lowerCmd.startsWith('sudo')) {
+      targetResponse = 'NICE TRY. THIS TERMINAL DOES NOT RECOGNIZE ROOT PRIVILEGES FOR VISITORS.';
+      isMatch = true;
+    } else if (lowerCmd === 'rm -rf /' || lowerCmd === 'rm -rf /*') {
+      targetResponse = 'REQUEST DENIED. NICE ATTEMPT, HACKER. SYSTEM INTEGRITY PRESERVED.';
+      isMatch = true;
+    } else if (lowerCmd === 'matrix') {
+      targetResponse = 'WAKE UP... THE MATRIX HAS YOU. FOLLOW THE WHITE RABBIT. 🐇';
+      isMatch = true;
+    } else if (lowerCmd === 'coffee' || lowerCmd === 'sudo make me coffee') {
+      targetResponse = 'BREWING... ☕ COFFEE.EXE COMPLETE. PRODUCTIVITY +100%';
+      isMatch = true;
+    } else if (lowerCmd === '42') {
+      targetResponse = 'THE ANSWER TO LIFE, THE UNIVERSE, AND EVERYTHING. QUESTION STILL UNKNOWN.';
+      isMatch = true;
+    } else if (lowerCmd.startsWith('echo ')) {
+      const message = cleanCmd.slice(5);
+      targetResponse = message.toUpperCase();
       isMatch = true;
     }
 
@@ -145,7 +180,6 @@ export default function Footer() {
     setFormSubmitted(true);
 
     try {
-      // Sends the payload to your email via Web3Forms API
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: {
@@ -153,7 +187,7 @@ export default function Footer() {
           Accept: "application/json",
         },
         body: JSON.stringify({
-          access_key: "db080172-5c11-4395-8554-6cb684819977", // <-- Put your access key here
+          access_key: "db080172-5c11-4395-8554-6cb684819977",
           name: formData.name,
           email: formData.email,
           message: formData.message,
@@ -260,20 +294,22 @@ export default function Footer() {
               </div>
 
               {/* Console Output Screen Area */}
-              <div className="p-5 h-64 overflow-y-auto font-mono text-xs space-y-3 scrollbar-none text-neutral-300">
-                {terminalLogs.map((log, index) => (
-                  <div key={index} className="leading-relaxed min-h-[1.25rem] block overflow-hidden clear-both">
-                    {log.type === 'input' ? (
-                      <span className="text-orange-400 font-bold">{log.text}</span>
-                    ) : log.type === 'success' ? (
-                      <span className="text-emerald-400 font-bold font-mono tracking-wide drop-shadow-[0_0_4px_rgba(52,211,153,0.35)]">
-                        {log.text}
-                      </span>
-                    ) : (
-                      <span>{log.text}</span>
-                    )}
-                  </div>
-                ))}
+              <div
+                data-lenis-prevent
+                className="p-5 h-64 overflow-y-auto overscroll-contain font-mono text-xs space-y-3 scrollbar-none text-neutral-300"
+              >                {terminalLogs.map((log, index) => (
+                <div key={index} className="leading-relaxed min-h-[1.25rem] block overflow-hidden clear-both">
+                  {log.type === 'input' ? (
+                    <span className="text-orange-400 font-bold">{log.text}</span>
+                  ) : log.type === 'success' ? (
+                    <span className="text-emerald-400 font-bold font-mono tracking-wide drop-shadow-[0_0_4px_rgba(52,211,153,0.35)]">
+                      {log.text}
+                    </span>
+                  ) : (
+                    <span>{log.text}</span>
+                  )}
+                </div>
+              ))}
                 <div ref={terminalEndRef} />
               </div>
 

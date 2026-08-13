@@ -16,7 +16,6 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [cursorReady, setCursorReady] = useState(false);
 
-  // 1. Handle the global loading state
   useEffect(() => {
     Promise.all([
       new Promise((resolve) => {
@@ -25,7 +24,6 @@ export default function App() {
       }),
       document.fonts ? document.fonts.ready : Promise.resolve()
     ]).then(() => {
-      // Small 800ms buffer so the loading screen doesn't instantly flash away
       setTimeout(() => {
         window.scrollTo(0, 0);
         setIsLoading(false);
@@ -44,9 +42,7 @@ export default function App() {
     };
   }, []);
 
-  // 2. Initialize Scroll & Animations ONLY after loading finishes
   useLayoutEffect(() => {
-    // Exit early if still loading so GSAP doesn't measure an empty screen
     if (isLoading) return;
 
     if ('scrollRestoration' in history) {
