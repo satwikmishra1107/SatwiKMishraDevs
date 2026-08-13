@@ -1,6 +1,6 @@
 # push.ps1
 
-$repo = "https://github.com/satwikmishra1107/Portfolio-Website-Overall-Structure.git"
+$repo = "https://github.com/satwikmishra1107/SatwiKMishraDevs"
 $branch = "main"
 
 if (!(Test-Path ".git")) {
