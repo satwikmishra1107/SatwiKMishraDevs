@@ -89,20 +89,6 @@ export default function Experience() {
                         ))}
                       </div>
 
-                      {/* Fast Micro Telemetry Metrics Footer */}
-                      {/* <div className="grid grid-cols-3 gap-2 mt-4 pt-3 border-t border-neutral-900/80">
-                        {exp.metrics.slice(0, 3).map((metric) => (
-                          <div key={metric.label} className="font-mono text-center">
-                            <div className="text-[7px] text-neutral-500 uppercase tracking-widest truncate">
-                              {metric.label}
-                            </div>
-                            <div className={`text-xs font-bold mt-0.5 ${isEven ? 'text-orange-400' : 'text-amber-400'}`}>
-                              {metric.value}
-                            </div>
-                          </div>
-                        ))}
-                      </div> */}
-
                     </div>
                   </div>
 

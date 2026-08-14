@@ -12,26 +12,11 @@ export const MANIFESTO = {
 export const EXPERIENCES: Experience[] = [
   {
     id: "exp-1",
-    role: "Systems Engineer",
-    company: "TCS",
-    period: "2024 — PRESENT",
-    highlights: [
-      "Enterprise software modernization across backend architecture, performance optimization, legacy migration, and production tooling.",
-    ],
-    techStack: ["Java", "Spring Boot", "PL/SQL", "RestAPI", "Linux RHEL"],
-    metrics: [
-      { label: "LATENCY REDUCTION", value: "90%" },
-      { label: "LEGACY MODERNIZATION", value: "CORE SYSTEM" },
-      { label: "THROUGHPUT STABILITY", value: "99.999%" },
-    ],
-  },
-  {
-    id: "exp-2",
     role: "B.Tech. — ECE",
     company: "IIIT Tiruchirappalli",
     period: "2020 — 2024",
     highlights: [
-      "A foundation in electronics, communication systems, and engineering that eventually led toward software and systems development.",
+      "A Bachelor's in Electronics & Communication Engineering from an Institute of National Importance",
     ],
     techStack: [
       "C/C++",
@@ -45,7 +30,21 @@ export const EXPERIENCES: Experience[] = [
       { label: "EVENT CONCURRENCY", value: "50K/sec" },
       { label: "MONITORING AUDIT", value: "REAL-TIME" },
     ],
-  },
+  },{
+    id: "exp-2",
+    role: "Systems Engineer",
+    company: "TCS",
+    period: "2024 — PRESENT",
+    highlights: [
+      "Developed an ERMS as a , performance optimization, Legacy migration, and production tooling.",
+    ],
+    techStack: ["Java", "Spring Boot", "PL/SQL", "RestAPI", "Linux RHEL"],
+    metrics: [
+      { label: "LATENCY REDUCTION", value: "90%" },
+      { label: "LEGACY MODERNIZATION", value: "CORE SYSTEM" },
+      { label: "THROUGHPUT STABILITY", value: "99.999%" },
+    ],
+  }
 ];
 
 export const PROJECTS: Project[] = [
@@ -63,7 +62,7 @@ export const PROJECTS: Project[] = [
     thumbnail: ProjectOne,
     demoUrl: "#",
     status: "UNDER MAINTENANCE",
-    githubUrl: "https://github.com",
+    githubUrl: "https://github.com/satwikmishra1107/ChunkyDiscord",
     stats: [
       { label: "Maximum chunk size", value: "99.998%" },
       { label: "BLOCK READ LATENCY", value: "1.4ms" },
@@ -79,7 +78,7 @@ export const PROJECTS: Project[] = [
     thumbnail: ProjectTwo,
     demoUrl: "#",
     status:"UNDER MAINTENANCE",
-    githubUrl: "https://github.com",
+    githubUrl: "https://github.com/satwikmishra1107/PDN-Tracker",
     stats: [
       { label: "BUILD DEPLOY TIME", value: "<12s" },
       { label: "ROLLBACK ACCURACY", value: "100.0%" },

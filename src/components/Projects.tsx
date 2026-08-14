@@ -92,9 +92,9 @@ export default function Projects() {
 
                   {/* High Visibility Action Buttons - OPTIMIZED: removed backdrop-blur */}
                   <div className="flex flex-wrap sm:flex-nowrap gap-4 pt-2 font-mono text-xs">
-                    <a
-                      href={project.demoUrl}
-                      target="_blank"
+                    <div
+                      // href={project.demoUrl}
+                      // target="_blank"
                       rel="noreferrer"
                       className={`flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3 rounded-lg border font-semibold tracking-wider transition-all duration-300 shadow-md ${isEven
                         ? 'bg-orange-950/30 border-orange-500/40 text-orange-400 hover:bg-orange-500/10 hover:border-orange-400 hover:shadow-[0_0_15px_rgba(249,115,22,0.2)]'
@@ -102,8 +102,8 @@ export default function Projects() {
                         }`}
                     >
                       <ExternalLink className="w-4 h-4" />
-                      <span>LAUNCH_HUD // LIVE</span>
-                    </a>
+                      <span>UPCOMING...</span>
+                    </div>
 
                     <a
                       href={project.githubUrl}
@@ -154,20 +154,6 @@ export default function Projects() {
 
                     {/* Card Body */}
                     <div className="p-6 md:p-8 flex-1 flex flex-col justify-between relative z-10">
-                      <div>
-                        {/* Tags */}
-                        <div className="flex flex-wrap gap-1.5 mb-4">
-                          {project.tags.map((tag) => (
-                            <span
-                              key={tag}
-                              className="font-mono text-[8px] tracking-widest text-neutral-400 bg-neutral-900/60 px-2 py-0.5 rounded border border-neutral-800"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
                       {/* Project specific specifications grid */}
                       <div>
                         {/* Embedded Micro Status Indicator */}

@@ -267,18 +267,25 @@ export default function Footer() {
             </div>
 
             {/* Social Links: pointer-events-auto re-enabled only on buttons */}
-            <div className="space-y-3 font-mono text-xs">
-              <div className="text-[9px] text-neutral-600 uppercase tracking-widest font-semibold">// ROUTING_ACCESS_NODES</div>
-              {SOCIALS.map((soc) => (
-                <button
-                  key={soc.id}
-                  onClick={() => executeCommand(soc.terminalCommand, soc.url)}
-                  className="flex items-center gap-2 text-orange-400/90 hover:text-amber-400 transition-colors duration-200 group text-left cursor-pointer pointer-events-auto"
-                >
-                  <span className="text-neutral-700 font-bold group-hover:text-orange-500 transition-colors duration-200">{`>>>`}</span>
-                  <span className="underline decoration-orange-500/20 underline-offset-4 font-semibold">{soc.terminalCommand}</span>
-                </button>
-              ))}
+            {/* Social Links: pointer-events-auto re-enabled only on buttons */}
+            <div className="font-mono text-xs w-full">
+              <div className="text-[9px] text-neutral-600 uppercase tracking-widest font-semibold mb-3">// ROUTING_ACCESS_NODES</div>
+              <div className="flex flex-col gap-3">
+                {SOCIALS.map((soc) => (
+                  <button
+                    key={soc.id}
+                    onClick={() => executeCommand(soc.terminalCommand, soc.url)}
+                    className="flex items-center gap-4 w-full px-5 py-3.5 bg-neutral-950/50 border border-neutral-800 hover:border-orange-500/40 hover:bg-orange-950/20 rounded-md text-orange-400/90 hover:text-amber-400 transition-all duration-300 group text-left cursor-pointer pointer-events-auto shadow-sm hover:shadow-[0_0_20px_rgba(249,115,22,0.1)]"
+                  >
+                    <span className="text-neutral-700 font-bold group-hover:text-orange-500 transition-colors duration-300">
+                      {`>>>`}
+                    </span>
+                    <span className="font-semibold tracking-wide uppercase">
+                      {soc.terminalCommand}
+                    </span>
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
 
