@@ -8,7 +8,7 @@ import About from './components/About';
 import Experience from './components/Experience';
 import Projects from './components/Projects';
 import Footer from './components/Footer';
-import Cursor from './components/Cursor';
+// import Cursor from './components/Cursor';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -119,8 +119,6 @@ export default function App() {
       });
     });
 
-    // We can remove the old load listeners here because 
-    // the parent useEffect now guarantees everything is ready
     ScrollTrigger.refresh();
 
     return () => {
@@ -130,7 +128,6 @@ export default function App() {
     };
   }, [isLoading]); 
 
-  // 3. Render Loading Screen
   // 3. Render Loading Screen
   if (isLoading) {
     const hour = new Date().getHours();
@@ -156,7 +153,7 @@ export default function App() {
   // 4. Render Main App
   return (
     <div className="relative min-h-screen bg-[#050505] text-neutral-200 overflow-x-hidden selection:bg-orange-500/30 selection:text-orange-200">
-      {cursorReady && <Cursor />}
+      {/* {cursorReady && <Cursor />} */}
       <Navbar />
       <main className="w-full">
         <Hero />

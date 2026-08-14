@@ -26,11 +26,11 @@ body {
   position: relative;
 }
 
-html,
+/* html,
 body,
 * {
   cursor: none;
-}
+} */
 
 @keyframes shimmer {
   100% {

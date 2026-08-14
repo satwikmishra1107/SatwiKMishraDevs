@@ -48,7 +48,7 @@ export default function Hero() {
       <div className="absolute inset-0 w-full h-full z-0 pointer-events-auto">
         {showSpline && (
           <Spline
-            scene="https://prod.spline.design/97sO5r6uWz6sOIzY/scene.splinecode?v=10"
+            scene="https://prod.spline.design/97sO5r6uWz6sOIzY/scene.splinecode?v=2"
             className="w-full h-full block"
           />
         )}
